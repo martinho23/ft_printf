@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   printraw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/10 01:19:08 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/03/10 11:22:37 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/09 19:51:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/project.h"
-#include "../libft/libft.h"
+#include <unistd.h>
 
-int		ft_printf(const char *format, ...)
+int		printraw(const char *format, t_format_data *data)
 {
-	t_fdata	data;
-	int				count;
-	int				tmpcnt;
-	va_list			args;
+	int		i;
 
-
-	data.index = 0;
-	count = 0;
-	while (format[data.index])
-	{
-		if (format[data.index++] == '%' && format[data.index] != '%')
-		{
-			if ((tmpcnt = formathandler(format, &data, args)) == (-1))
-				return (-1);
-			else
-				count += tmpcnt;
-		}
-		else
-			count += printraw(format, &data);
-	}
-	return (count);
+	i = 0;
+	while (format[data->index + i] && format[data->index + i] != '%')
+		i++;
+	write(1, &format[data->index], i);
+	data->index += i;
+	return (i);
 }

@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   cleanflags.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/10 01:19:08 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/03/09 12:55:15 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/09 19:52:47 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/project.h"
-#include "../libft/libft.h"
 
-int		ft_printf(const char *format, ...)
+void	cleanflags(t_format_data *data)
 {
-	t_fdata	data;
-	int				count;
-	int				tmpcnt;
-	va_list			args;
+	int		i;
 
-
-	data.index = 0;
-	count = 0;
-	while (format[data.index])
+	i = 0;
+	while (i < 5)
 	{
-		if (format[data.index++] == '%' && format[data.index] != '%')
-		{
-			if ((tmpcnt = formathandler(format, &data, args)) == (-1))
-				return (-1);
-			else
-				count += tmpcnt;
-		}
-		else
-			count += printraw(format, &data);
+		data->flags[i] = 0;
+		i++;
 	}
-	return (count);
 }

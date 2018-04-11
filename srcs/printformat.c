@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   printformat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/10 01:19:08 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/03/28 20:41:20 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/09 19:28:29 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/project.h"
 #include "../libft/libft.h"
 
-int		ft_printf(const char *format, ...)
+static	void	funcinit(int (*func[20])(const char *, t_format_data *))
 {
-	t_fdata	data;
-	int				count;
-	int				tmpcnt;
-	va_list			args;
+	func[0] = &hlenght;
+	func[1] = &Hlenght;
+	func[2] = &llenght;
+	func[3] = &Llenght;
+	func[4] = &jlenght;
+	func[5] = &zlenght;
+}
 
+int		printformat(const char *format, t_format_data *data)
+{
+	int		option;
+	int		(*func[20])(const char *, t_format_data *);
 
-	data.index = 0;
-	count = 0;
-	while (format[data.index])
-	{
-		if (format[data.index++] == '%' && format[data.index] != '%')
-		{
-			if ((tmpcnt = formathandler(format, &data, args)) == (-1))
-				return (-1);
-			else
-				count += tmpcnt;
-		}
-		else
-			count += printraw(format, &data);
-	}
-	return (count);
+	funcinit(func);
+	option = ft_strfindoc("hHlHjz", format[data->index]);
+	return (option < 20) ? func[option](format, data) : (-1);
 }
