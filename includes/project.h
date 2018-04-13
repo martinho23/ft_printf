@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/10 18:59:00 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/11 19:15:14 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@
 # define CONVERSION 2;
 # define LEFTADJUSTED 3;
 # define SPACEINDICATOR 4;
-# define CONVERTIONS "sSpdDioOuUxXcC"
-# define LENGTHS "hHlLjz"
 # define FLAGS "0+#- "
+# define LENGTHS "hHlLjz"
+# define CONVERTIONS "sSpdDioOuUxXcC"
+# include <stdarg.h>
 # include <inttypes.h>
 typedef unsigned int t_size;
 typedef struct	s_fdata
 {
-	t_size		fwidth;
 	t_size		index;
+	t_size		fwidth;
 	t_size		length;
 	int			precision;
 	int			flags[5];
@@ -34,5 +35,4 @@ typedef struct	s_fdata
 int				ft_printf(const char *format, ...);
 int				printraw(const char *format, t_fdata *data);
 void			getdata(const char *format, t_fdata *data);
-void			cleanflags(t_fdata *data);
 #endif

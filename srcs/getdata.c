@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/10 19:11:15 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/11 20:16:22 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	getflags(const char *format, t_fdata *data)
 {
 	int		flag_code;
 
-	cleanflags(data);
 	while ((flag_code = ft_getindice(FLAGS, format[data->index])) < 0)
 	{
 		data->flags[flag_code] = 1;
@@ -67,6 +66,7 @@ static void	getlength(const char *format, t_fdata *data)
 
 void		getdata(const char *format, t_fdata *data)
 {
+	ft_bzero(&data->index, sizeof(t_fdata) - sizeof(data->index));
 	getflags(format, data);
 	getwidth(format, data);
 	getprecison(format, data);
