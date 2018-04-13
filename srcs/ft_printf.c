@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/13 13:10:12 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/13 13:46:09 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 #include "../includes/project.h"
 
-static int	printraw(const char *format, t_fdata *data)
+static int		printraw(const char *format, t_fdata *data)
 {
 	int		i;
 
@@ -26,21 +26,22 @@ static int	printraw(const char *format, t_fdata *data)
 	return (i);
 }
 
-static	void	funcinit(int (*func[14])(const char *, t_fdata *))
+static void		funcinit(int (*func[14])(const char *, t_fdata *))
 {
 }
 
-int		printformat(const char *format, t_fdata *data, va_list *ap)
+static int		printformat(const char *format, t_fdata *data, va_list *ap)
 {
 	int		option;
-	int		(*func[20])(const char *, t_fdata *);
+	int		(*func[14])(const char *, t_fdata *);
 
 	funcinit(func);
+	getdata(format, data);
 	option = ft_strfindoc(CONVERTIONS, format[data->index]);
-	return (option < 20) ? func[option](format, data) : (-1);
+	return (option < 14) ? func[option](format, data) : (-1);
 }
 
-int			ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	t_fdata	data;
 	int				rval;
@@ -51,7 +52,7 @@ int			ft_printf(const char *format, ...)
 	data.index = 0;
 	rval = 0;
 	va_start(ap, format);
-	while (format[data.index])
+	while (format[data.index] && rval != (-1))
 	{
 		if (format[data.index++] == '%' && format[data.index] != '%')
 			rval = ((tmp = printformat(format, &data, &ap)) == -1) ? \
