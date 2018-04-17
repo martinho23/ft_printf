@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 11:28:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/03/09 12:45:39 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/17 09:07:53 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <inttypes.h>
 /*
 ** List Structure
 */
@@ -24,7 +25,6 @@ typedef	struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
-
 /*
 ** Memory Functions
 */
@@ -88,19 +88,20 @@ int				ft_tolower(int c);
 /*
 ** Print functions
 */
-void			ft_putchar(char c);
-void			ft_putstr(const char *str);
-void			ft_putendl(const char *str);
-void			ft_putnbr(int nbr);
-void			ft_putchar_fd(char c, int fd);
-void			ft_putstr_fd(const char *str, int fd);
-void			ft_putendl_fd(const char *str, int fd);
-void			ft_putnbr_fd(int nbr, int fd);
+size_t			ft_putchar(int c);
+size_t			ft_putstr(const char *str);
+size_t			ft_putendl(const char *str);
+size_t			ft_putnbr(int nbr);
+size_t			ft_putchar_fd(int c, int fd);
+size_t			ft_putstr_fd(const char *str, int fd);
+size_t			ft_putendl_fd(const char *str, int fd);
+size_t			ft_putnbr_fd(int nbr, int fd);
 /*
 ** Misc functions
 */
 int				ft_atoi(const char *str);
 char			*ft_itoa(int nbr);
+size_t			ft_uintmtoa(uintmax_t nbr, size_t step, char *array);
 /*
 **List functions
 */

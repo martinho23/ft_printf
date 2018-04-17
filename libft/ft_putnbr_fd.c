@@ -6,25 +6,27 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:31:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2017/11/20 13:31:29 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/17 09:30:48 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int nbr, int fd)
+size_t	ft_putnbr_fd(int nbr, int fd)
 {
-	long lnbr;
+	long	lnbr;
+	size_t	len;
+	char	nbra[11];
 
 	lnbr = (long)nbr;
+	len = 0;
 	if (lnbr < 0)
 	{
 		lnbr *= -1;
 		ft_putchar_fd('-', fd);
 	}
-	if (lnbr > 9)
-	{
-		ft_putnbr_fd((lnbr / 10), fd);
-	}
-	ft_putchar_fd(((lnbr % 10) + '0'), fd);
+	len = ft_uintmtoa(lnbr, 0, nbra) + 1;
+	nbra[len] = '\0';
+	ft_putstr_fd(nbra, fd);
+	return ((nbr < 0) ? (len + 1) : len);
 }

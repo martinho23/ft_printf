@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_uintmtoa.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/14 11:19:58 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/17 08:43:58 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/17 08:52:42 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/17 09:08:33 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putstr_fd(const char *str, int fd)
+size_t	ft_uintmtoa(uintmax_t nbr, size_t step, char *array)
 {
-	int len;
+	size_t	size = 0;
 
-	len = 0;
-	if (str)
-		len = ft_strlen(str);
-	write(fd, str, len);
-	return (len);
+	size = (step > size) ? step : size;
+	if (nbr > 9) {
+		size = ft_uintmtoa((nbr / 10), (step + 1), array);
+	}
+	array[size - step] = (nbr % 10) + '0';
+	return (size);
 }

@@ -6,13 +6,13 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:50:23 by jfarinha          #+#    #+#             */
-/*   Updated: 2017/11/14 11:51:11 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/17 08:45:02 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl(const char *str)
+size_t	ft_putendl(const char *str)
 {
-	ft_putendl_fd(str, 1);
+	return (ft_putendl_fd(str, 1));
 }
