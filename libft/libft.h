@@ -6,16 +6,24 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 11:28:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/17 09:07:53 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/18 08:58:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
+/*
+**Includes
+*/
 #include <stdlib.h>
 #include <unistd.h>
 #include <inttypes.h>
+/*
+**Defines
+*/
+#define STDIN 0
+#define STDOUT 1
+#define STDERR 2
 /*
 ** List Structure
 */
@@ -88,20 +96,26 @@ int				ft_tolower(int c);
 /*
 ** Print functions
 */
-size_t			ft_putchar(int c);
-size_t			ft_putstr(const char *str);
-size_t			ft_putendl(const char *str);
-size_t			ft_putnbr(int nbr);
-size_t			ft_putchar_fd(int c, int fd);
-size_t			ft_putstr_fd(const char *str, int fd);
-size_t			ft_putendl_fd(const char *str, int fd);
-size_t			ft_putnbr_fd(int nbr, int fd);
+int				ft_putchar(int c);
+int				ft_putnbr(int nbr);
+int				ft_putstr(const char *str);
+int				ft_putendl(const char *str);
+int				ft_putwstr(const wchar_t *str);
+int				ft_putnstr(const char *str, size_t n);
+int				ft_putnwstr(const wchar_t *str, size_t n);
+int				ft_putchar_fd(int c, int fd);
+int				ft_putnbr_fd(int nbr, int fd);
+int				ft_putstr_fd(const char *str, int fd);
+int				ft_putendl_fd(const char *str, int fd);
+int				ft_putwstr_fd(const wchar_t *str, int fd);
+int				ft_putnstr_fd(const char *str, size_t n, int fd);
+int				ft_putnwstr_fd(const wchar_t *str, size_t n, int fd);
 /*
 ** Misc functions
 */
 int				ft_atoi(const char *str);
 char			*ft_itoa(int nbr);
-size_t			ft_uintmtoa(uintmax_t nbr, size_t step, char *array);
+int				ft_uintmtoa_base(uintmax_t nbr, size_t b, char *ar);
 /*
 **List functions
 */

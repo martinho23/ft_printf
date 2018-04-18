@@ -6,16 +6,18 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:15 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/17 08:46:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/18 07:37:19 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putendl_fd(const char *str, int fd)
+int		ft_putendl_fd(const char *str, int fd)
 {
 	size_t len;
 
+	if (fd < 0 && str)
+		return (-1);
 	len = 0;
 	if (str)
 	{

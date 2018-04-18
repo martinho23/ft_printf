@@ -6,13 +6,13 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:51:19 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/17 08:42:02 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/18 07:37:53 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putstr(const char *str)
+int		ft_putstr(const char *str)
 {
-	return (ft_putstr_fd(str, 1));
+	return (ft_putstr_fd(str, STDOUT));
 }

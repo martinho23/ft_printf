@@ -6,13 +6,13 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:46:43 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/17 09:04:09 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/18 07:32:45 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putnbr(int nbr)
+int		ft_putnbr(int nbr)
 {
-	return (ft_putnbr_fd(nbr, 1));
+	return (ft_putnbr_fd(nbr, STDOUT));
 }
