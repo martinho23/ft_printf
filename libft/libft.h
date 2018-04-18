@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 11:28:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/18 08:58:43 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/18 10:50:51 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,9 @@ int				ft_putnwstr_fd(const wchar_t *str, size_t n, int fd);
 /*
 ** Misc functions
 */
-int				ft_atoi(const char *str);
 char			*ft_itoa(int nbr);
+int				ft_atoi(const char *str);
+int				ft_uimtoalen_base(uintmax_t nbr, size_t b);
 int				ft_uintmtoa_base(uintmax_t nbr, size_t b, char *ar);
 /*
 **List functions
