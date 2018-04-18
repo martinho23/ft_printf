@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 11:28:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/18 10:50:51 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/18 14:49:42 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 #define STDIN 0
 #define STDOUT 1
 #define STDERR 2
+#define BASE2 "01"
+#define BASE8 "01234567"
+#define BASE10 "0123456789"
+#define BASE16 "0123456789abcdef"
+#define BASE16_C "0123456789ABCDEF"
+#define STDBASE "0123456789abcdefghijklmnopqrstuvwxyz"
 /*
 ** List Structure
 */
@@ -116,7 +122,7 @@ int				ft_putnwstr_fd(const wchar_t *str, size_t n, int fd);
 char			*ft_itoa(int nbr);
 int				ft_atoi(const char *str);
 int				ft_uimtoalen_base(uintmax_t nbr, size_t b);
-int				ft_uintmtoa_base(uintmax_t nbr, size_t b, char *ar);
+int				ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl);
 /*
 **List functions
 */

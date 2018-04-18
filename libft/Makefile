@@ -6,7 +6,7 @@
 #    By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 13:44:49 by jfarinha          #+#    #+#              #
-#    Updated: 2018/04/18 10:53:43 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/04/18 14:48:59 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FLAGS=-Wall -Werror -Wextra
 SRCS=$(patsubst %, %.c, $(FILES))
 FILES=	ft_memset	ft_memcpy	ft_memccpy	ft_memmove	ft_memchr	ft_memcmp\
 		ft_memalloc	ft_memdel	ft_bzero\
-		ft_atoi		ft_itoa		ft_uintmtoa_base		ft_uimtoalen_base\
+		ft_atoi		ft_itoa		ft_uimtoa_base		ft_uimtoalen_base\
 		ft_toupper	ft_tolower\
 		ft_isspace	ft_isdigit	ft_islower	ft_isupper	ft_isalpha	ft_isalnum\
 		ft_isascii	ft_isprint	ft_getindice\
