@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 13:26:44 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/18 14:50:16 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/19 11:50:48 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char		*ft_itoa(int nbr)
 {
-	char	array[ft_uimtoalen_base(((size_t)(nbr * -1)), 10) + 1];
+	char	array[11];
 	int		signe;
 
 	signe = (nbr < 0) ? 0 : 1;
