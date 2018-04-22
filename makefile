@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/26 14:55:06 by jfarinha          #+#    #+#              #
-#    Updated: 2018/04/09 20:59:05 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/04/22 21:23:57 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,7 @@ INC=includes	libft
 LIBDIR=libft
 LIB=ft
 FLAGS=-Wall -Werror -Wextra
-FILES=	ft_printf	cleanflags	getflags	getprecision	getwith	printformat\
-		printraw
+FILES=	ft_printf	getdata	printf_utils	chars_handler
 
 all:bins $(NAME)
 

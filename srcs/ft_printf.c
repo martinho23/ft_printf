@@ -6,13 +6,12 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/13 13:46:09 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/22 20:49:04 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "../libft/libft.h"
-#include "../includes/project.h"
+#include "../includes/ft_printf.h"
 
 static int		printraw(const char *format, t_fdata *data)
 {
@@ -21,24 +20,26 @@ static int		printraw(const char *format, t_fdata *data)
 	i = 0;
 	while (format[data->index + i] && format[data->index + i] != '%')
 		i++;
-	write(1, &format[data->index], i);
+	write(1, &format[data->index], (size_t)i);
 	data->index += i;
 	return (i);
 }
 
-static void		funcinit(int (*func[14])(const char *, t_fdata *))
+static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
 {
+	func[12] = char_handler;
+	func[13] = char_handler;
 }
 
 static int		printformat(const char *format, t_fdata *data, va_list *ap)
 {
-	int		option;
-	int		(*func[14])(const char *, t_fdata *);
+	int		op;
+	int		(*func[14])(const char *, t_fdata *, va_list *);
 
 	funcinit(func);
 	getdata(format, data);
-	option = ft_strfindoc(CONVERTIONS, format[data->index]);
-	return (option < 14) ? func[option](format, data) : (-1);
+	op = ft_getindice(CONVERTIONS, format[data->index]);
+	return (op < 14 && op >= 0) ? func[op](format, data, ap) : (-1);
 }
 
 int				ft_printf(const char *format, ...)
@@ -54,7 +55,7 @@ int				ft_printf(const char *format, ...)
 	va_start(ap, format);
 	while (format[data.index] && rval != (-1))
 	{
-		if (format[data.index++] == '%' && format[data.index] != '%')
+		if (format[data.index] == '%' && format[data.index + 1] != '%')
 			rval = ((tmp = printformat(format, &data, &ap)) == -1) ? \
 			(-1) : tmp + rval;
 		else

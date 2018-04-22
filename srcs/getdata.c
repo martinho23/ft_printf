@@ -6,19 +6,18 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/11 20:16:22 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/22 20:56:48 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../includes/project.h"
+#include "../includes/ft_printf.h"
 #include "../libft/libft.h"
 
 static void	getflags(const char *format, t_fdata *data)
 {
 	int		flag_code;
 
-	while ((flag_code = ft_getindice(FLAGS, format[data->index])) < 0)
+	while ((flag_code = ft_getindice(FLAGS, format[data->index])) >= 0)
 	{
 		data->flags[flag_code] = 1;
 		data->index++;
@@ -35,7 +34,7 @@ static void	getprecison(const char *format, t_fdata *data)
 			data->index++;
 	}
 	else
-		data->precision = 6;
+		data->precision = -1;
 }
 
 static void	getwidth(const char *format, t_fdata *data)
@@ -52,13 +51,14 @@ static void	getwidth(const char *format, t_fdata *data)
 
 static void	getlength(const char *format, t_fdata *data)
 {
-	if ((data->length = ft_getindice(LENGTHS, format[data->index])) < 0)
+	data->len = ft_getindice(LENGTHS, format[data->index]);
+	if (data->len >= 0)
 	{
 		data->index++;
 		if ((format[data->index - 1] == 'l' && format[data->index] == 'l') ||\
 			(format[data->index - 1] == 'h' && format[data->index] == 'h'))
 		{
-			data->length++;
+			data->len++;
 			data->index++;
 		}
 	}
@@ -66,7 +66,8 @@ static void	getlength(const char *format, t_fdata *data)
 
 void		getdata(const char *format, t_fdata *data)
 {
-	ft_bzero(&data->index, sizeof(t_fdata) - sizeof(data->index));
+	ft_bzero(&data->fwidth, sizeof(t_fdata) - sizeof(data->index));
+	data->index++;
 	getflags(format, data);
 	getwidth(format, data);
 	getprecison(format, data);
