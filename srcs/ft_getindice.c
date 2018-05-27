@@ -6,11 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 12:40:46 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/03/09 12:47:11 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/23 14:50:14 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
 int		ft_getindice(const char* str, char c)
 {

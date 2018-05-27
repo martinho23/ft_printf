@@ -6,12 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/22 21:52:24 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/23 15:07:31 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include "../libft/libft.h"
 
 static int	init_char_handler(t_fdata *data, int *padding)
 {
@@ -19,7 +18,7 @@ static int	init_char_handler(t_fdata *data, int *padding)
 
 	cnbr = (data->fwidth > 1) ? data->fwidth : 1;
 	*padding = data->fwidth - 1;
-	if (data->precision != (-1))
+	if (data->preci != (-1))
 		return (-1);
 	if (data->flags[0])
 		return (-1);
@@ -48,7 +47,7 @@ int			char_handler(const char *format, t_fdata *data, va_list *ap)
 	data->index++;
 	if (len == (-1))
 		return (-1);
-	(data->flags[3]) ? pad(padding, ' ') : ft_putchar(c);
-	(!data->flags[3]) ? pad(padding, ' ') : ft_putchar(c);
+	(!data->flags[3]) ? pad(padding, ' ') : ft_putchar_fd(c, 1);
+	(data->flags[3]) ? pad(padding, ' ') : ft_putchar_fd(c, 1);
 	return (len);
 }

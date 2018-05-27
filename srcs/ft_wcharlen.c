@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_wcharlen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 15:32:12 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:49:48 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/23 13:27:28 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/23 15:01:25 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	ft_bzero(void *p, t_size n)
+size_t	ft_wcharlen(int c)
 {
-	ft_memset(p, '\0', n);
+	if (c <= 0x7F)
+		return (1);
+	if (c <= 0x7FF)
+		return (2);
+	if (c <= 0xFFFF)
+		return (3);
+	if (c <= 0x10FFFF)
+		return (4);
+	return (-1);
 }

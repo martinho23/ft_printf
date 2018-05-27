@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 21:19:48 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:46:21 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/12 18:41:23 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/23 15:12:33 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		ft_atoi(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	int		is_neg;
 	int		i;
-	long	result;
 
-	is_neg = 1;
-	result = 0;
 	i = 0;
-	while (ft_isspace(str[i]))
+	while (*str++)
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		is_neg = str[i] == '-' ? -1 : 1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((result * is_neg));
+	return (i);
 }

@@ -6,12 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/22 20:56:48 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/23 15:06:28 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include "../libft/libft.h"
 
 static void	getflags(const char *format, t_fdata *data)
 {
@@ -29,12 +28,12 @@ static void	getprecison(const char *format, t_fdata *data)
 	if (format[data->index] == '.')
 	{
 		data->index++;
-		data->precision = ft_atoi(&format[data->index]);
+		data->preci = ft_atoi(&format[data->index]);
 		while (ft_isdigit(format[data->index]))
 			data->index++;
 	}
 	else
-		data->precision = -1;
+		data->preci = -1;
 }
 
 static void	getwidth(const char *format, t_fdata *data)

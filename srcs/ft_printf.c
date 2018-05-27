@@ -6,11 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/22 23:07:15 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/04/23 15:24:30 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include <unistd.h>
 #include "../includes/ft_printf.h"
 
 static int		printraw(const char *format, t_fdata *data)
@@ -20,13 +20,15 @@ static int		printraw(const char *format, t_fdata *data)
 	i = 0;
 	while (format[data->index + i] && format[data->index + i] != '%')
 		i++;
-	write(1, &format[data->index], (size_t)i);
+	write(1, &format[data->index], (t_size)i);
 	data->index += i;
 	return (i);
 }
 
 static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
 {
+	func[0] = string_handler;
+	func[1] = string_handler;
 	func[12] = char_handler;
 	func[13] = char_handler;
 }

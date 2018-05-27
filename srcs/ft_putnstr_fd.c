@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/14 11:48:00 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/18 07:29:26 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/17 15:20:01 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/23 15:48:09 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include "../includes/ft_printf.h"
 
-int		ft_putchar(int c)
+int		ft_putnstr_fd(const char *str, size_t n, int fd)
 {
-	return (ft_putchar_fd(c, STDOUT));
+	size_t	len;
+
+	if ((fd > 0) && !str)
+		return (-1);
+	len = ft_strlen(str);
+	n = (n < len) ? n : len;
+	write(fd, str, n);
+	return ((int)n);
 }
