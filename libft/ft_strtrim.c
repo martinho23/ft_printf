@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 21:19:48 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:46:21 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 19:59:44 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/20 13:28:01 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-int		ft_atoi(const char *str)
+static int	whitespaces(char c)
 {
-	int		is_neg;
-	int		i;
-	long	result;
+	return (c == ' ' || c == '\t' || c == '\n');
+}
 
-	is_neg = 1;
-	result = 0;
+char		*ft_strtrim(const char *str)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (ft_isspace(str[i]))
+	j = ft_strlen(str);
+	while (str[i] && whitespaces(str[i]))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		is_neg = str[i] == '-' ? -1 : 1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((result * is_neg));
+	while (whitespaces(str[j - 1]) && (j - 1) > 0)
+		j--;
+	if (j - i < 0)
+		i = 1;
+	tmp = ft_strsub(str, i, (j - i));
+	return (tmp);
 }

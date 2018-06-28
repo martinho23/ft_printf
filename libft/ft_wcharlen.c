@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_wcharlen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:34:43 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/23 13:27:28 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/23 13:31:29 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "../libft/libft.h"
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-void	pad(int lentopad, char c)
+size_t	ft_wcharlen(int c)
 {
-	char	padding[lentopad];
-	int		i;
-
-	i = 0;
-	while (i < lentopad)
-		padding[i++] = c;
-	if (lentopad > 0)
-		write(1, padding, (size_t)lentopad);
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
-	{
-		write(1, msg, ft_strlen(msg));
+	if (c <= 0x7F)
 		return (1);
-	}
-	return (0);
+	if (c <= 0x7FF)
+		return (2);
+	if (c <= 0xFFFF)
+		return (3);
+	if (c <= 0x10FFFF)
+		return (4);
+	return (-1);
 }

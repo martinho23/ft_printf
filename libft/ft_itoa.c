@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:34:43 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/01/27 13:26:44 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/19 11:59:58 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "../libft/libft.h"
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-void	pad(int lentopad, char c)
+char		*ft_itoa(int nbr)
 {
-	char	padding[lentopad];
-	int		i;
+	char	array[ft_imtoalen_base(nbr, 10) + 1];
+	int		signe;
 
-	i = 0;
-	while (i < lentopad)
-		padding[i++] = c;
-	if (lentopad > 0)
-		write(1, padding, (size_t)lentopad);
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
-	{
-		write(1, msg, ft_strlen(msg));
-		return (1);
-	}
-	return (0);
+	signe = (nbr < 0) ? 0 : 1;
+	if (nbr == -2147483648)
+		return (ft_strdup("-2147483648"));
+	nbr = (nbr < 0) ? (nbr * -1) : nbr;
+	ft_uimtoa_base(nbr, 10,  array, BASE10);
+	return (signe == 0) ? (ft_strjoin("-", array)) : (ft_strdup(array));
 }

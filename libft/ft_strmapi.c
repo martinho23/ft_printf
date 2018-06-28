@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/23 13:32:58 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:59:19 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 17:29:37 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/21 09:38:38 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-size_t	ft_wstrlen(const wchar_t *wstr)
+char	*ft_strmapi(const char *str, char (*f)(unsigned int, char))
 {
 	int		i;
-	size_t	len;
+	char	*tmp;
 
 	i = 0;
-	len = 0;
-	while (wstr[i])
+	if (!str)
+		return (NULL);
+	if (!(tmp = (char *)malloc(sizeof(*tmp) * ft_strlen(str) + 1)))
+		return (NULL);
+	while (str[i])
 	{
-		len += ft_wcharlen(wstr[i]);
+		tmp[i] = f(i, str[i]);
 		i++;
 	}
-	return (len);
+	tmp[i] = '\0';
+	return (tmp);
 }

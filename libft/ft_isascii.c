@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/17 15:20:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 15:48:09 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 14:47:13 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/13 14:48:30 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-int		ft_putnstr_fd(const char *str, size_t n, int fd)
+int		ft_isascii(int c)
 {
-	size_t	len;
-
-	if ((fd > 0) && !str)
-		return (-1);
-	len = ft_strlen(str);
-	n = (n < len) ? n : len;
-	write(fd, str, n);
-	return ((int)n);
+	return (c >= 0 && c <= 127);
 }

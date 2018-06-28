@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_uimtoalen_base.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:34:43 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/18 10:36:36 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/19 12:00:49 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "../libft/libft.h"
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-void	pad(int lentopad, char c)
+int		ft_uimtoalen_base(uintmax_t nbr, size_t b)
 {
-	char	padding[lentopad];
 	int		i;
 
-	i = 0;
-	while (i < lentopad)
-		padding[i++] = c;
-	if (lentopad > 0)
-		write(1, padding, (size_t)lentopad);
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
+	i = 1;
+	if (b < 2)
+		return (-1);
+	while (nbr > b)
 	{
-		write(1, msg, ft_strlen(msg));
-		return (1);
+		nbr /= b;
+		i++;
 	}
-	return (0);
+	return (i);
 }

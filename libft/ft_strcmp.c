@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getindice.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/09 12:40:46 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:50:14 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 13:33:44 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/13 13:41:09 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-int		ft_getindice(const char* str, char c)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	int		i;
-
-	i = 0;
-	while (str[i])
+	while (*s1 || *s2)
 	{
-		if (str[i] == c)
-			return (i);
-		i++;
+		if (*(s1++) != *(s2++))
+			return (((unsigned char)*(s1 - 1)) - ((unsigned char)*(s2 - 1)));
 	}
-	return (-1);
+	return (0);
 }

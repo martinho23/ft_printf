@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/25 23:37:38 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/06/28 19:39:19 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,20 @@ typedef struct	s_fdata
 	int			preci;
 	int			flags[5];
 }				t_fdata;
-
-int				ft_isdigit(int c);
-int				ft_isspace(int c);
-int				ft_atoi(const char *str);
-int				ft_putchar_fd(int c, int fd);
-int				ft_getindice(const char *str, char c);
+typedef struct	s_nbdata
+{
+	intmax_t	nb;
+	int			spad;
+	int			sprc;
+	int			snb;
+	int			base;
+	char		pad;
+	char		poschar;
+}				t_nbdata;
 int				ft_printf(const char *format, ...);
-int				ft_putnstr_fd(const char *str, size_t n, int fd);
-int				ft_putnwstr_fd(const wchar_t *str, size_t n, int fd);
 int				string_handler(const char *format, t_fdata *data, va_list *ap);
 int				char_handler(const char *format, t_fdata *data, va_list *ap);
+int				int_handler(const char *format, t_fdata *data, va_list *ap);
 void			pad(int lentopad, char c);
-void			ft_bzero(void *p, t_size n);
-void			*ft_memset(void *p, int c, size_t n);
 void			getdata(const char *format, t_fdata *data);
-size_t			ft_wcharlen(int c);
-size_t			ft_strlen(const char *str);
-size_t			ft_wstrlen(const wchar_t *wstr);
 #endif

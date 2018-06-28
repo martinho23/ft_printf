@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wcharlen.c                                      :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/23 13:27:28 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 15:01:25 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/12 21:01:12 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/12 21:21:36 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-size_t	ft_wcharlen(int c)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	if (c <= 0x7F)
-		return (1);
-	if (c <= 0x7FF)
-		return (2);
-	if (c <= 0xFFFF)
-		return (3);
-	if (c <= 0x10FFFF)
-		return (4);
-	return (-1);
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+		dest[i++] = '\0';
+	return (dest);
 }

@@ -1,0 +1,7 @@
+#obj files + lib files
+*.o
+*.a
+*.so
+*.So
+*.sh
+test*

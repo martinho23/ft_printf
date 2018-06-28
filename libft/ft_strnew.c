@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 16:12:10 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:52:31 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 15:45:40 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/21 09:39:38 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-void	*ft_memset(void *p, int c, size_t n)
+char	*ft_strnew(size_t size)
 {
-	unsigned char *tmp;
+	char	*tmp;
 
-	tmp = (unsigned char *)p;
-	while (n-- > 0)
-		*(tmp++) = (unsigned char)c;
-	return (p);
+	if (!(tmp = (char *)malloc(sizeof(*tmp) * size + 1)))
+		return (NULL);
+	ft_bzero(tmp, size + 1);
+	return (tmp);
 }

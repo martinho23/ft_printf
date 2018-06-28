@@ -6,11 +6,12 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/05/27 13:20:49 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/06/28 19:53:51 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <../libft/libft.h>
 #include "../includes/ft_printf.h"
 
 static int		printraw(const char *format, t_fdata *data)
@@ -29,9 +30,9 @@ static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
 {
 	func[0] = string_handler;
 	func[1] = string_handler;
-	func[2] = string_handler;
-	func[3] = string_handler;
-	func[4] = string_handler;
+	func[2] = int_handler;
+	func[3] = int_handler;
+	func[4] = int_handler;
 	func[5] = string_handler;
 	func[6] = string_handler;
 	func[7] = string_handler;
@@ -51,7 +52,7 @@ static int		printformat(const char *format, t_fdata *data, va_list *ap)
 	funcinit(func);
 	getdata(format, data);
 	op = ft_getindice(CONVERTIONS, format[data->index]);
-	return (op < 14 && op >= 0) ? func[op](format, data, ap) : (-1);
+	return ((op < 14 && op >= 0) ? func[op](format, data, ap) : (-1));
 }
 
 int				ft_printf(const char *format, ...)

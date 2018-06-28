@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 15:32:12 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:49:48 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 15:06:04 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/14 13:08:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-void	ft_bzero(void *p, t_size n)
+int		ft_tolower(int c)
 {
-	ft_memset(p, '\0', n);
+	return (ft_isupper(c) ? (c + 32) : c);
 }

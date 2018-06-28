@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 02:06:56 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/04/23 14:47:10 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 15:56:21 by jfarinha          #+#    #+#             */
+/*   Updated: 2017/11/13 16:27:44 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-int		ft_isspace(int c)
+void	ft_strclr(char *str)
 {
-	if ((c >= 9 && c <= 13) || c == 32)
+	while (str && *str)
 	{
-		return (1);
+		*(str++) = '\0';
 	}
-	else
-		return (0);
 }

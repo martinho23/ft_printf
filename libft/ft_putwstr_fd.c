@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_putwstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:34:43 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/17 10:45:59 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/04/23 13:55:56 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "../libft/libft.h"
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-void	pad(int lentopad, char c)
+int		ft_putwstr_fd(const wchar_t *str, int fd)
 {
-	char	padding[lentopad];
-	int		i;
+	size_t	len;
 
-	i = 0;
-	while (i < lentopad)
-		padding[i++] = c;
-	if (lentopad > 0)
-		write(1, padding, (size_t)lentopad);
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
-	{
-		write(1, msg, ft_strlen(msg));
-		return (1);
-	}
-	return (0);
+	if ((fd < 0) && str)
+		return (-1);
+	len = 0;
+	while(str && *str)
+		len += ft_putchar_fd(*str++, fd);
+	return (len);
 }
