@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/28 19:39:19 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/06/30 11:19:42 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define FLAGS "0+#- "
 # define LENGTHS "hHlLjz"
 # define CONVERTIONS "sSdDipoOuUxXcC"
+# define PAD_MAX 1000
 # include <stdarg.h>
 # include <inttypes.h>
 # include <wchar.h>
@@ -41,11 +42,13 @@ typedef struct	s_nbdata
 	int			base;
 	char		pad;
 	char		poschar;
+	char		*conv;
 }				t_nbdata;
 int				ft_printf(const char *format, ...);
 int				string_handler(const char *format, t_fdata *data, va_list *ap);
 int				char_handler(const char *format, t_fdata *data, va_list *ap);
 int				int_handler(const char *format, t_fdata *data, va_list *ap);
+int				uint_handler(const char *format, t_fdata *date, va_list *ap);
 void			pad(int lentopad, char c);
 void			getdata(const char *format, t_fdata *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:34:43 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/06/30 11:33:11 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,18 @@
 
 void	pad(int lentopad, char c)
 {
-	char	padding[lentopad];
+	char	padding[PAD_MAX];
 	int		i;
 
 	i = 0;
-	while (i < lentopad)
-		padding[i++] = c;
-	if (lentopad > 0)
-		write(1, padding, (size_t)lentopad);
+	while(lentopad > 0)
+	{
+		while (i < lentopad && i < PAD_MAX)
+			padding[i++] = c;
+		write(1, padding, i);
+		i = 0;
+		lentopad -= PAD_MAX;
+	}
 }
 
 int		error_handler(int error, char *msg)

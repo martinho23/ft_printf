@@ -6,17 +6,18 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/28 21:00:46 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/06/30 21:01:00 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/ft_printf.h"
 #include "../libft/libft.h"
 
-static intmax_t	getim(t_fdata *data, va_list *ap)
+static intmax_t	getim(const char *format, t_fdata *data, va_list *ap)
 {
-	if (data->len == 0)
+	if (format[data->index] == 'D')
+		return ((intmax_t)va_arg(*ap, long int));
+	else if (data->len == 0)
 		return ((intmax_t)va_arg(*ap, int));
 	else if (data->len == 1)
 		return ((intmax_t)va_arg(*ap, int));
@@ -34,18 +35,25 @@ static intmax_t	getim(t_fdata *data, va_list *ap)
 
 static void		process(t_fdata *data, t_nbdata *nb, int *len)
 {
-	char	nba[nb->snb];
+	char	nba[nb->snb + 1];
 
+	if (!data->flags[3] && !data->flags[0])
+		pad(nb->spad, nb->pad);
 	if (nb->nb < 0)
 	{
 		ft_putchar_fd('-', 1);
 		nb->nb = nb->nb * -1;
 	}
+	if (data->flags[0])
+		pad(nb->spad, nb->pad);
 	else if (data->flags[1] || data->flags[4])
 		ft_putchar_fd(nb->poschar, 1);
 	pad(nb->sprc, '0');
 	ft_uimtoa_base((uintmax_t)nb->nb, nb->base, nba, BASE10);
+	nba[nb->snb] = '\0';
 	ft_putstr_fd(nba, 1);
+	if (data->flags[3])
+		pad(nb->spad, nb->pad);
 	*len = nb->snb;
 	*len += (nb->spad > 0) ? nb->spad : 0;
 	*len += (nb->sprc > 0) ? nb->sprc : 0;
@@ -57,8 +65,7 @@ int				int_handler(const char *format, t_fdata *data, va_list *ap)
 	t_nbdata	nb;
 	int			len;
 
-	(void)format;
-	nb.nb = getim(data, ap);
+	nb.nb = getim(format, data, ap);
 	nb.base = 10;
 	nb.snb = ft_imtoalen_base(nb.nb, nb.base);
 	nb.spad = data->fwidth;
@@ -75,7 +82,6 @@ int				int_handler(const char *format, t_fdata *data, va_list *ap)
 		nb.pad = '0';
 	nb.spad = nb.spad - nb.snb;
 	nb.spad -= (nb.nb < 0 || data->flags[1] || data->flags[4]) ? 1 : 0;
-	(!data->flags[3]) ? pad(nb.spad, nb.pad) : process(data, &nb, &len);
-	(data->flags[3]) ? pad(nb.spad, nb.pad) : process(data, &nb, &len);
+	process(data, &nb, &len);
 	return (len);
  }

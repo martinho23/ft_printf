@@ -6,14 +6,14 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/26 14:55:06 by jfarinha          #+#    #+#              #
-#    Updated: 2018/06/28 19:52:14 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/06/29 17:03:34 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME :=libftprintf.a
 LIB :=libft/libft.a
 FILES :=ft_printf	getdata	printf_utils	chars_handler	string_handler\
-		int_handler
+		int_handler	uint_handler
 BINS :=$(FILES:=.o)
 BINS :=$(addprefix srcs/, $(BINS))
 INC :=includes

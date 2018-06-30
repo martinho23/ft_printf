@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/28 19:53:51 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/06/29 17:07:46 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
 	func[2] = int_handler;
 	func[3] = int_handler;
 	func[4] = int_handler;
-	func[5] = string_handler;
-	func[6] = string_handler;
-	func[7] = string_handler;
-	func[8] = string_handler;
-	func[9] = string_handler;
-	func[10] = string_handler;
-	func[11] = string_handler;
+	func[5] = uint_handler;
+	func[6] = uint_handler;
+	func[7] = uint_handler;
+	func[8] = uint_handler;
+	func[9] = uint_handler;
+	func[10] = uint_handler;
+	func[11] = uint_handler;
 	func[12] = char_handler;
 	func[13] = char_handler;
 }
