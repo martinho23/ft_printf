@@ -6,12 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/28 20:11:29 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 10:22:58 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include "../libft/libft.h"
 
 static void	getflags(const char *format, t_fdata *data)
 {

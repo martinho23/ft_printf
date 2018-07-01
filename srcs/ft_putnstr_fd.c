@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 10:23:23 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/17 15:20:01 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/07/01 14:58:09 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../includes/ft_printf.h"
 
-void	pad(int lentopad, char c)
+int		ft_putnstr_fd(const char *str, size_t n, int fd)
 {
-	char	padding[PAD_MAX];
-	int		i;
+	size_t	len;
 
-	i = 0;
-	while(lentopad > 0)
-	{
-		while (i < lentopad && i < PAD_MAX)
-			padding[i++] = c;
-		write(1, padding, i);
-		i = 0;
-		lentopad -= PAD_MAX;
-	}
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
-	{
-		write(1, msg, ft_strlen(msg));
-		return (1);
-	}
-	return (0);
+	if ((fd > 0) && str)
+		return (-1);
+	len = ft_strlen(str);
+	n = (n < len) ? n : len;
+	write(fd, str, n);
+	return ((int)n);
 }

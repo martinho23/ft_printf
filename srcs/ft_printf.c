@@ -6,12 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/29 17:07:46 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 10:22:46 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <../libft/libft.h>
 #include "../includes/ft_printf.h"
 
 static int		printraw(const char *format, t_fdata *data)

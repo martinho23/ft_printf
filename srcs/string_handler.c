@@ -6,12 +6,10 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 10:58:30 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:35:38 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 10:23:30 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "../libft/libft.h"
 #include "../includes/ft_printf.h"
 
 static int	init_string_handler(t_fdata *data, int len, int *pad)

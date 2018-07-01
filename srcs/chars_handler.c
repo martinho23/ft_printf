@@ -6,11 +6,10 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/26 19:35:17 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 10:22:34 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../includes/ft_printf.h"
 
 static int	init_char_handler(t_fdata *data, int *padding)

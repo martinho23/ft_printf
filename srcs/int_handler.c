@@ -6,12 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/06/30 21:01:00 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 10:23:04 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include "../libft/libft.h"
 
 static intmax_t	getim(const char *format, t_fdata *data, va_list *ap)
 {

@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 10:23:23 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/04/23 13:32:58 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/07/01 14:46:23 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "../includes/ft_printf.h"
 
-void	pad(int lentopad, char c)
+size_t	ft_wstrlen(const wchar_t *wstr)
 {
-	char	padding[PAD_MAX];
 	int		i;
+	size_t	len;
 
 	i = 0;
-	while(lentopad > 0)
+	len = 0;
+	while (wstr[i])
 	{
-		while (i < lentopad && i < PAD_MAX)
-			padding[i++] = c;
-		write(1, padding, i);
-		i = 0;
-		lentopad -= PAD_MAX;
+		len += ft_wcharlen(wstr[i]);
+		i++;
 	}
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
-	{
-		write(1, msg, ft_strlen(msg));
-		return (1);
-	}
-	return (0);
+	return (len);
 }
