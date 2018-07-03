@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 15:12:47 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/03 07:11:32 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				string_handler(const char *format, t_fdata *data, va_list *ap);
 int				char_handler(const char *format, t_fdata *data, va_list *ap);
 int				int_handler(const char *format, t_fdata *data, va_list *ap);
 int				uint_handler(const char *format, t_fdata *date, va_list *ap);
-void			pad(int lentopad, char c);
+int				pad(int lentopad, char c);
 void			getdata(const char *format, t_fdata *data);
 /*
 ** ========== Lib FT ==========

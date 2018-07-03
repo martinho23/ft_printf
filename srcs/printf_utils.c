@@ -6,14 +6,14 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 10:23:23 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/03 07:11:00 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../includes/ft_printf.h"
 
-void	pad(int lentopad, char c)
+int		pad(int lentopad, char c)
 {
 	char	padding[PAD_MAX];
 	int		i;
@@ -27,6 +27,7 @@ void	pad(int lentopad, char c)
 		i = 0;
 		lentopad -= PAD_MAX;
 	}
+	return (lentopad);
 }
 
 int		error_handler(int error, char *msg)

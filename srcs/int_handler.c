@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 10:23:04 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 16:06:18 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void		process(t_fdata *data, t_nbdata *nb, int *len)
 
 	if (!data->flags[3] && !data->flags[0])
 		pad(nb->spad, nb->pad);
+	*len = (nb->nb < 0) ? 1 : 0;
 	if (nb->nb < 0)
 	{
 		ft_putchar_fd('-', 1);
@@ -53,7 +54,7 @@ static void		process(t_fdata *data, t_nbdata *nb, int *len)
 	ft_putstr_fd(nba, 1);
 	if (data->flags[3])
 		pad(nb->spad, nb->pad);
-	*len = nb->snb;
+	*len += nb->snb;
 	*len += (nb->spad > 0) ? nb->spad : 0;
 	*len += (nb->sprc > 0) ? nb->sprc : 0;
 	*len += (nb->nb < 0 || data->flags[1] || data->flags[4]) ? 1 : 0;

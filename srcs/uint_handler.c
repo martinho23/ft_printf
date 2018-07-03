@@ -6,10 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 10:24:11 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/01 20:40:51 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../includes/ft_printf.h"
 
 static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
@@ -32,20 +33,21 @@ static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
 		return ((uintmax_t)va_arg(*ap, unsigned int));
 }
 
-static void			putconv(const char *format, t_fdata *data)
+static int			putconv(const char *format, t_fdata *data)
 {
 	if (format[data->index] == 'x' || format[data->index] == 'p')
-		ft_putstr_fd("0x", 1);
+		return (ft_putstr_fd("0x", 1));
 	else if (format[data->index] == 'X')
-		ft_putstr_fd("0X", 1);
+		return (ft_putstr_fd("0X", 1));
+	return (0);
 }
 
 static void			process(const char *f, t_fdata *d, t_nbdata *nb, int *len)
 {
-	char	nba[nb->snb + 1];
+	char	nba[1 + nb->snb];
 
 	if (d->flags[2])
-		putconv(f, d);
+		*len = putconv(f, d);
 	pad(nb->sprc, '0');
 	if (f[d->index] == 'X')
 	{
@@ -55,10 +57,9 @@ static void			process(const char *f, t_fdata *d, t_nbdata *nb, int *len)
 		ft_uimtoa_base(nb->nb, nb->base, nba, BASE16);
 	nba[nb->snb] = '\0';
 	ft_putstr_fd(nba, 1);
-	*len = nb->snb;
+	*len += nb->snb;
 	*len += (nb->spad > 0) ? nb->spad : 0;
 	*len += (nb->sprc > 0) ? nb->sprc : 0;
-	*len += ft_strlen(nb->conv);
 }
 
 static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
