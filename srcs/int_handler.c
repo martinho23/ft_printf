@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 16:06:18 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/03 19:34:28 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,13 @@ static void		process(t_fdata *data, t_nbdata *nb, int *len)
 		pad(nb->spad, nb->pad);
 	else if (data->flags[1] || data->flags[4])
 		ft_putchar_fd(nb->poschar, 1);
-	pad(nb->sprc, '0');
+	len += pad(nb->sprc, '0');
 	ft_uimtoa_base((uintmax_t)nb->nb, nb->base, nba, BASE10);
 	nba[nb->snb] = '\0';
-	ft_putstr_fd(nba, 1);
+	if (data->preci != 0 || nb->nb != 0)
+		*len += ft_putstr_fd(nba, 1);
 	if (data->flags[3])
-		pad(nb->spad, nb->pad);
-	*len += nb->snb;
-	*len += (nb->spad > 0) ? nb->spad : 0;
-	*len += (nb->sprc > 0) ? nb->sprc : 0;
+		*len += pad(nb->spad, nb->pad);
 	*len += (nb->nb < 0 || data->flags[1] || data->flags[4]) ? 1 : 0;
 }
 

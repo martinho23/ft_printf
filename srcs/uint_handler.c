@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 20:40:51 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/03 19:26:44 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ static int			putconv(const char *format, t_fdata *data)
 	return (0);
 }
 
-static void			process(const char *f, t_fdata *d, t_nbdata *nb, int *len)
+static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 {
+	int		len;
 	char	nba[1 + nb->snb];
 
+	if (d->preci == 0 && nb->nb == 0)
+		return (ft_putstr_fd("", 1));
 	if (d->flags[2])
-		*len = putconv(f, d);
+		len = putconv(f, d);
 	pad(nb->sprc, '0');
 	if (f[d->index] == 'X')
 	{
@@ -57,9 +60,10 @@ static void			process(const char *f, t_fdata *d, t_nbdata *nb, int *len)
 		ft_uimtoa_base(nb->nb, nb->base, nba, BASE16);
 	nba[nb->snb] = '\0';
 	ft_putstr_fd(nba, 1);
-	*len += nb->snb;
-	*len += (nb->spad > 0) ? nb->spad : 0;
-	*len += (nb->sprc > 0) ? nb->sprc : 0;
+	len += nb->snb;
+	len += (nb->spad > 0) ? nb->spad : 0;
+	len += (nb->sprc > 0) ? nb->sprc : 0;
+	return (len);
 }
 
 static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
@@ -103,8 +107,8 @@ int					uint_handler(const char *format, t_fdata *data, va_list *ap)
 	else if (data->flags[0])
 		nb.pad = '0';
 	nb.spad = nb.spad - nb.snb;
-	(!data->flags[3]) ? pad(nb.spad, nb.pad) : process(format, data, &nb, &len);
-	(data->flags[3]) ? pad(nb.spad, nb.pad) : process(format, data, &nb, &len);
+	len = (!data->flags[3]) ? pad(nb.spad, nb.pad) : process(format, data, &nb);
+	len = (data->flags[3]) ? pad(nb.spad, nb.pad) : process(format, data, &nb);
 	data->index++;
 	return (len);
 }
