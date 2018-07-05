@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/03 19:34:28 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/04 19:09:58 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,23 @@ static void		process(t_fdata *data, t_nbdata *nb, int *len)
 	char	nba[nb->snb + 1];
 
 	if (!data->flags[3] && !data->flags[0])
-		pad(nb->spad, nb->pad);
-	*len = (nb->nb < 0) ? 1 : 0;
+		*len = pad(nb->spad, nb->pad);
 	if (nb->nb < 0)
 	{
-		ft_putchar_fd('-', 1);
+		*len += ft_putchar_fd('-', 1);
 		nb->nb = nb->nb * -1;
 	}
 	if (data->flags[0])
-		pad(nb->spad, nb->pad);
+		*len += pad(nb->spad, nb->pad);
 	else if (data->flags[1] || data->flags[4])
-		ft_putchar_fd(nb->poschar, 1);
-	len += pad(nb->sprc, '0');
+		*len += ft_putchar_fd(nb->poschar, 1);
+	*len += pad(nb->sprc, '0');
 	ft_uimtoa_base((uintmax_t)nb->nb, nb->base, nba, BASE10);
 	nba[nb->snb] = '\0';
 	if (data->preci != 0 || nb->nb != 0)
 		*len += ft_putstr_fd(nba, 1);
 	if (data->flags[3])
 		*len += pad(nb->spad, nb->pad);
-	*len += (nb->nb < 0 || data->flags[1] || data->flags[4]) ? 1 : 0;
 }
 
 int				int_handler(const char *format, t_fdata *data, va_list *ap)
@@ -63,6 +61,7 @@ int				int_handler(const char *format, t_fdata *data, va_list *ap)
 	t_nbdata	nb;
 	int			len;
 
+	len = 0;
 	nb.nb = getim(format, data, ap);
 	nb.base = 10;
 	nb.snb = ft_imtoalen_base(nb.nb, nb.base);
@@ -77,7 +76,7 @@ int				int_handler(const char *format, t_fdata *data, va_list *ap)
 		nb.spad = nb.spad - nb.sprc;
 	}
 	else if (data->flags[0])
-		nb.pad = '0';
+		 nb.pad = '0';
 	nb.spad = nb.spad - nb.snb;
 	nb.spad -= (nb.nb < 0 || data->flags[1] || data->flags[4]) ? 1 : 0;
 	process(data, &nb, &len);

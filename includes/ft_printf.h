@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/03 07:11:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/05 05:56:42 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 # define STDOUT 1
 # define FLAGS "0+#- "
 # define LENGTHS "hHlLjz"
-# define CONVERTIONS "sSdDipoOuUxXcC"
+# define CONVERTIONS "sSdDipoOuUxXcC%"
 # define PAD_MAX 1000
+# define CONVNB 15
 # define BASE10 "0123456789"
 # define BASE16 "0123456789abcdef"
 # define BASE16_C "0123456789ABCDEF"
@@ -38,7 +39,7 @@ typedef struct	s_nbdata
 	int			spad;
 	int			sprc;
 	int			snb;
-	int			base;
+	size_t		base;
 	char		pad;
 	char		poschar;
 	char		*conv;
@@ -51,6 +52,7 @@ int				string_handler(const char *format, t_fdata *data, va_list *ap);
 int				char_handler(const char *format, t_fdata *data, va_list *ap);
 int				int_handler(const char *format, t_fdata *data, va_list *ap);
 int				uint_handler(const char *format, t_fdata *date, va_list *ap);
+int				percent_handler(const char *format, t_fdata *data, va_list *ap);
 int				pad(int lentopad, char c);
 void			getdata(const char *format, t_fdata *data);
 /*

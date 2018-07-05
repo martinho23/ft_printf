@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 10:22:46 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/04 07:43:46 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,18 @@ static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
 	func[11] = uint_handler;
 	func[12] = char_handler;
 	func[13] = char_handler;
+	func[14] = percent_handler;
 }
 
 static int		printformat(const char *format, t_fdata *data, va_list *ap)
 {
 	int		op;
-	int		(*func[14])(const char *, t_fdata *, va_list *);
+	int		(*func[CONVNB])(const char *, t_fdata *, va_list *);
 
 	funcinit(func);
 	getdata(format, data);
 	op = ft_getindice(CONVERTIONS, format[data->index]);
-	return ((op < 14 && op >= 0) ? func[op](format, data, ap) : (-1));
+	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : (-1));
 }
 
 int				ft_printf(const char *format, ...)
@@ -67,7 +68,7 @@ int				ft_printf(const char *format, ...)
 	va_start(ap, format);
 	while (format[data.index] && rval != (-1))
 	{
-		if (format[data.index] == '%' && format[data.index + 1] != '%')
+		if (format[data.index] == '%')
 			rval = ((tmp = printformat(format, &data, &ap)) == -1) ? \
 			(-1) : tmp + rval;
 		else

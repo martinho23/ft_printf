@@ -1,44 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   percent_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/04 08:21:49 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/07/04 07:21:05 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/07/04 07:46:24 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "../includes/ft_printf.h"
 
-int		pad(int lentopad, char c)
+int		percent_handler(const char *format, t_fdata *data, va_list *ap)
 {
-	char	padding[PAD_MAX];
-	int		i;
-	int		count;
+	int		len;
 
-	i = 0;
-	count = 0;
-	while(lentopad > 0)
-	{
-		while (i < lentopad && i < PAD_MAX)
-			padding[i++] = c;
-		write(1, padding, i);
-		count += i;
-		i = 0;
-		lentopad -= PAD_MAX;
-	}
-	return (count);
-}
-
-int		error_handler(int error, char *msg)
-{
-	if (error)
-	{
-		write(1, msg, ft_strlen(msg));
-		return (1);
-	}
-	return (0);
+	(void)format;
+	(void)ap;
+	len = (!data->flags[3]) ? pad(data->fwidth - 1, ' ') : ft_putstr_fd("%", 1);
+	len = (data->flags[3]) ? pad(data->fwidth - 1, ' ') : ft_putstr_fd("%", 1);
+	data->index++;
+	return (len);
 }
