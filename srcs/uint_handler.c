@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/05 06:04:06 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/05 17:37:42 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
 		return ((uintmax_t)va_arg(*ap, unsigned int));
 }
 
-static int			putconv(const char *format, t_fdata *data)
+static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
 {
-	if (format[data->index] == 'x' || format[data->index] == 'p')
-		return (ft_putstr_fd("0x", 1));
-	else if (format[data->index] == 'X')
-		return (ft_putstr_fd("0X", 1));
+	if (nb->nb != 0)
+	{
+		if (format[data->index] == 'x' || format[data->index] == 'p')
+			return (ft_putstr_fd("0x", 1));
+		else if (format[data->index] == 'X')
+			return (ft_putstr_fd("0X", 1));
+	}
+	else
+		return (0);
 	return (0);
 }
 
@@ -47,19 +52,25 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 	int		len;
 	char	nba[1 + nb->snb];
 
-	len = (nb->sprc > 0) ? nb->sprc : 0;
-	if (d->preci == 0 && nb->nb == 0)
-		return (ft_putstr_fd("", 1));
+	len = 0;
+	if (!d->flags[3] && !d->flags[0])
+		len += pad(nb->spad, nb->pad);
 	if (d->flags[2])
-		len += putconv(f, d);
-	pad(nb->sprc, '0');
+		len += putconv(f, d, nb);
+	if (!d->flags[3] && d->flags[0])
+		len += pad(nb->spad, nb->pad);
+	nb->spad -= len;
+	len += pad(nb->sprc, '0');
 	if (f[d->index] == 'X')
 	{
 		ft_uimtoa_base(nb->nb, nb->base, nba, BASE16_C);
 	}
 	else
 		ft_uimtoa_base(nb->nb, nb->base, nba, BASE16);
-	len += ft_putnstr_fd(nba, nb->snb, 1);
+	if (d->preci != 0 || nb->nb != 0)
+		len += ft_putnstr_fd(nba, nb->snb, 1);
+	if (d->flags[3])
+		len += pad(nb->spad, nb->pad);
 	return (len);
 }
 
@@ -93,8 +104,7 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	nb.snb = ft_uimtoalen_base(nb.nb, nb.base);
 	nb.pad = ' ';
 	nb.sprc = 0;
-	if (d->flags[2])
-		nb.spad -= 2;
+	nb.spad -= (d->flags[2] && nb.nb != 0) ? 2 : 0;
 	if (d->preci > -1)
 	{
 		nb.sprc = d->preci - nb.snb;
@@ -103,8 +113,7 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	else if (d->flags[0])
 		nb.pad = '0';
 	nb.spad = nb.spad - nb.snb;
-	len = (!d->flags[3]) ? pad(nb.spad, nb.pad) : process(format, d, &nb);
-	len += (d->flags[3]) ? pad(nb.spad, nb.pad) : process(format, d, &nb);
+	len = process(format, d, &nb);
 	d->index++;
 	return (len);
 }
