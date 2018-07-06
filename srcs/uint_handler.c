@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/05 17:37:42 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/06 06:31:19 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
 			return (ft_putstr_fd("0X", 1));
 	}
 	else
-		return (0);
+		if (format[data->index] == 'o' || format[data->index] == 'O')
+			return (ft_putstr_fd("0", 1));
 	return (0);
 }
 
@@ -76,10 +77,17 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 
 static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 {
+	nb->spad = (data->flags[0] && data->flags[3])? 0 : data->fwidth;
+	nb->spad -= (data->flags[2] && nb->nb != 0) ? 2 : 0;
 	if (format[data->index] == 'p')
 	{
 		data->flags[2] = 1;
 		nb->base = 16;
+	}
+	if (data->flags[2])
+	{
+		if (format[data->index] == 'o' || format[data->index] == 'O')
+			nb->spad -= 1;
 	}
 	else if (format[data->index] == 'x' ||format[data->index] == 'X')
 		nb->base = 16;
@@ -98,13 +106,11 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	t_nbdata	nb;
 	int			len;
 
-	prep(format, d, &nb);
 	nb.nb = getuim(format, d, ap);
-	nb.spad = d->fwidth;
+	prep(format, d, &nb);
 	nb.snb = ft_uimtoalen_base(nb.nb, nb.base);
 	nb.pad = ' ';
 	nb.sprc = 0;
-	nb.spad -= (d->flags[2] && nb.nb != 0) ? 2 : 0;
 	if (d->preci > -1)
 	{
 		nb.sprc = d->preci - nb.snb;

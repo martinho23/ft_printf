@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/03 19:03:21 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/06 05:54:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	getflags(const char *format, t_fdata *data)
 {
 	int		flag_code;
 
-	while (format[data->index] &&(flag_code = \
+	while (format[data->index] && (flag_code = \
 			ft_getindice(FLAGS, format[data->index])) >= 0)
 	{
 		data->flags[flag_code] = 1;
