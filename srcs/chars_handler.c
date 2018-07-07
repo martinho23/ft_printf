@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/07 16:20:17 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/07 16:28:49 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			char_handler(const char *format, t_fdata *data, va_list *ap)
 	len = init_char_handler(data, &padding, c);
 	if (len == (-1))
 		return (-1);
-	len = (!data->flags[3]) ? pad(padding, ' ') : process(c, 1);
-	len += (data->flags[3]) ? pad(padding, ' ') : process(c, 1);
+	(!data->flags[3]) ? pad(padding, ' ') : process(c, 1);
+	(data->flags[3]) ? pad(padding, ' ') : process(c, 1);
 	return (len);
 }
