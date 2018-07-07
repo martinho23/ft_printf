@@ -6,19 +6,18 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/07 16:28:49 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/07 16:31:50 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static int	init_char_handler(t_fdata *data, int *padding, int c)
+static int	init_char_handler(t_fdata *data, int *padding)
 {
 	int		cnbr;
 
 	cnbr = (data->fwidth > 1) ? data->fwidth : 1;
-	*padding = data->fwidth;
-	*padding -= (c == 0) ? 2 : 1;
+	*padding = data->fwidth - 1;
 	return (cnbr);
 }
 
@@ -41,7 +40,7 @@ int			char_handler(const char *format, t_fdata *data, va_list *ap)
 	else
 		c = va_arg(*ap, int);
 	data->index++;
-	len = init_char_handler(data, &padding, c);
+	len = init_char_handler(data, &padding);
 	if (len == (-1))
 		return (-1);
 	(!data->flags[3]) ? pad(padding, ' ') : process(c, 1);
