@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/06 06:31:19 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/07 15:43:52 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 {
 	nb->spad = (data->flags[0] && data->flags[3])? 0 : data->fwidth;
 	nb->spad -= (data->flags[2] && nb->nb != 0) ? 2 : 0;
-	if (format[data->index] == 'p')
-	{
-		data->flags[2] = 1;
-		nb->base = 16;
-	}
 	if (data->flags[2])
 	{
 		if (format[data->index] == 'o' || format[data->index] == 'O')
 			nb->spad -= 1;
+	}
+	if (format[data->index] == 'p')
+	{
+		data->flags[2] = 1;
+		nb->base = 16;
 	}
 	else if (format[data->index] == 'x' ||format[data->index] == 'X')
 		nb->base = 16;
@@ -111,14 +111,13 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	nb.snb = ft_uimtoalen_base(nb.nb, nb.base);
 	nb.pad = ' ';
 	nb.sprc = 0;
-	if (d->preci > -1)
-	{
-		nb.sprc = d->preci - nb.snb;
-		nb.spad = nb.spad - nb.sprc;
-	}
+	nb.sprc = d->preci - nb.snb;
+	if (nb.sprc > 0)
+		nb.spad -= nb.sprc;
 	else if (d->flags[0])
 		nb.pad = '0';
-	nb.spad = nb.spad - nb.snb;
+	if (d->preci != 0 || nb.nb != 0)
+		nb.spad -= nb.snb;
 	len = process(format, d, &nb);
 	d->index++;
 	return (len);
