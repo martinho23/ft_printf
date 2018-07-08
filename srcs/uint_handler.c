@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/07 16:56:28 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/08 18:10:12 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,12 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 
 static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 {
-	nb->spad -= (data->flags[2] && nb->nb != 0) ? 2 : 0;
 	if (data->flags[2])
 	{
 		if (format[data->index] == 'o' || format[data->index] == 'O')
 			nb->spad -= 1;
+		else
+			nb->spad -= (nb->nb != 0) ? 2 : 0;
 	}
 	if (format[data->index] == 'p')
 	{
