@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/08 18:37:29 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/08 19:09:46 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 	len += pad(nb->sprc, '0');
 	if (f[d->index] == 'X')
 	{
-		ft_uimtoa_base(nb->nb, nb->base, nba, BASE16_C);
+		ft_uimtoa_base(nb->unb, nb->base, nba, BASE16_C);
 	}
 	else
-		ft_uimtoa_base(nb->nb, nb->base, nba, BASE16);
-	if (d->preci != 0 || nb->nb != 0)
+		ft_uimtoa_base(nb->unb, nb->base, nba, BASE16);
+	if (d->preci != 0 || nb->unb != 0)
 		len += ft_putnstr_fd(nba, nb->snb, 1);
 	if (d->flags[3])
 		len += pad(nb->spad, nb->pad);
@@ -83,7 +83,7 @@ static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 		if (format[data->index] == 'o' || format[data->index] == 'O')
 			nb->spad -= 1;
 		else
-			nb->spad -= (nb->nb != 0) ? 2 : 0;
+			nb->spad -= (nb->unb != 0) ? 2 : 0;
 	}
 	if (format[data->index] == 'p')
 	{
@@ -107,17 +107,17 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	t_nbdata	nb;
 	int			len;
 
-	nb.nb = getuim(format, d, ap);
+	nb.unb = getuim(format, d, ap);
 	nb.spad = d->fwidth;
 	prep(format, d, &nb);
-	nb.snb = ft_uimtoalen_base(nb.nb, nb.base);
+	nb.snb = ft_uimtoalen_base(nb.unb, nb.base);
 	nb.pad = ' ';
 	nb.sprc = d->preci - nb.snb;
 	if (nb.sprc > 0)
 		nb.spad -= nb.sprc;
 	else if (d->flags[0] && !d->flags[3])
 		nb.pad = '0';
-	if (d->preci != 0 || nb.nb != 0)
+	if (d->preci != 0 || nb.unb != 0)
 		nb.spad -= nb.snb;
 	len = process(format, d, &nb);
 	d->index++;

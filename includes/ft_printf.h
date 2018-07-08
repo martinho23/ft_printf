@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/05 17:20:59 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/08 19:05:00 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_fdata
 typedef struct	s_nbdata
 {
 	intmax_t	nb;
+	uintmax_t	unb;
 	int			spad;
 	int			sprc;
 	int			snb;
