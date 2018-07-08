@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/08 19:09:46 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/08 19:13:42 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
 
 static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
 {
-	if (nb->nb != 0)
+	if (nb->unb != 0)
 	{
 		if (format[data->index] == 'x' || format[data->index] == 'p')
 			return (ft_putstr_fd("0x", 1));
