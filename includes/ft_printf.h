@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/08 19:05:00 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/10 08:41:52 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int				ft_putstr_fd(const char *str, int fd);
 int				ft_putnstr_fd(const char *str, size_t n, int fd);
 int				ft_putnwstr_fd(const wchar_t *wstr, size_t n, int fd);
 size_t			ft_wcharlen(int  c);
-int				ft_imtoalen_base(intmax_t nbr, int b);
+int				ft_imtoalen_base(intmax_t nbr, size_t b);
 int				ft_uimtoalen_base(uintmax_t nbr, size_t b);
 int				ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl);
 size_t			ft_wstrlen(const wchar_t *str);

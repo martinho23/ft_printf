@@ -6,28 +6,27 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/08 19:07:03 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/10 19:40:00 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/ft_printf.h"
 
 static intmax_t	getim(const char *format, t_fdata *data, va_list *ap)
 {
 	if (format[data->index] == 'D')
-		return ((long int)va_arg(*ap, long int));
+		return ((long int)va_arg(*ap, intmax_t));
 	else if (data->len == 0)
-		return ((short int)va_arg(*ap, int));
+		return ((short int)va_arg(*ap, intmax_t));
 	else if (data->len == 1)
-		return ((char)va_arg(*ap, int));
+		return ((char)va_arg(*ap, intmax_t));
 	else if (data->len == 2)
-		return ((long int)va_arg(*ap, long int));
+		return ((long int)va_arg(*ap, intmax_t));
 	else if (data->len == 3)
-		return ((long long int)va_arg(*ap, long long int));
+		return ((long long int)va_arg(*ap, intmax_t));
 	else if (data->len == 4)
 		return ((intmax_t)va_arg(*ap, intmax_t));
 	else if (data->len == 5)
-		return ((size_t)va_arg(*ap, size_t));
+		return ((size_t)va_arg(*ap, intmax_t));
 	else
 		return ((int)va_arg(*ap, intmax_t));
 }

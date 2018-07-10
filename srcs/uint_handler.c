@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/08 19:13:42 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/10 19:45:48 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
 	if (format[data->index] == 'p')
 		return ((uintmax_t)va_arg(*ap, void *));
 	else if (data->len == 0)
-		return ((short unsigned int)va_arg(*ap, unsigned int));
+		return ((short unsigned int)va_arg(*ap, uintmax_t));
 	else if (data->len == 1)
-		return ((unsigned char)va_arg(*ap, unsigned int));
+		return ((unsigned char)va_arg(*ap, uintmax_t));
 	else if (data->len == 2)
-		return ((unsigned long int)va_arg(*ap, unsigned long int));
+		return ((unsigned long int)va_arg(*ap, uintmax_t));
 	else if (data->len == 3)
-		return ((unsigned long long int)va_arg(*ap, unsigned long long int));
+		return ((unsigned long long int)va_arg(*ap, uintmax_t));
 	else if (data->len == 4)
 		return ((uintmax_t)va_arg(*ap, uintmax_t));
 	else if (data->len == 5)
-		return ((size_t)va_arg(*ap, size_t));
+		return ((size_t)va_arg(*ap, uintmax_t));
 	else
-		return ((unsigned int)va_arg(*ap, unsigned int));
+		return ((unsigned int)va_arg(*ap, uintmax_t));
 }
 
 static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
@@ -78,6 +78,7 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 
 static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 {
+	nb->base = 10;
 	if (data->flags[2])
 	{
 		if (format[data->index] == 'o' || format[data->index] == 'O')
@@ -98,8 +99,6 @@ static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 		data->len = 2;
 	else if (format[data->index] == 'U')
 		data->len = 2;
-	else
-		nb->base = 10;
 }
 
 int					uint_handler(const char *format, t_fdata *d, va_list *ap)
@@ -107,9 +106,9 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	t_nbdata	nb;
 	int			len;
 
-	nb.unb = getuim(format, d, ap);
 	nb.spad = d->fwidth;
 	prep(format, d, &nb);
+	nb.unb = getuim(format, d, ap);
 	nb.snb = ft_uimtoalen_base(nb.unb, nb.base);
 	nb.pad = ' ';
 	nb.sprc = d->preci - nb.snb;
