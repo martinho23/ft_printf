@@ -6,11 +6,12 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/10 20:15:59 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/07/12 17:32:28 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
 #include "../includes/ft_printf.h"
 
 static int		printraw(const char *format, t_fdata *data)
@@ -52,7 +53,7 @@ static int		printformat(const char *format, t_fdata *data, va_list *ap)
 	funcinit(func);
 	getdata(format, data);
 	op = ft_getindice(CONVERTIONS, format[data->index]);
-	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : (0));
+	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : func[14](format, data, ap));
 }
 
 int				ft_printf(const char *format, ...)
