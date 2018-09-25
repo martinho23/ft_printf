@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/06 05:54:43 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 14:17:41 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,49 @@ static void	getflags(const char *format, t_fdata *data)
 	}
 }
 
-static void	getprecison(const char *format, t_fdata *data)
+static void	getprecison(const char *format, t_fdata *data, va_list *ap)
 {
 	if (format[data->index] == '.')
 	{
 		data->index++;
-		data->preci = ft_atoi(&format[data->index]);
-		while (ft_isdigit(format[data->index]))
+		if (format[data->index] == '*')
+		{
+			data->preci = (int)va_arg(*ap, int);
 			data->index++;
+		}
+		else
+		{
+			data->preci = ft_atoi(&format[data->index]);
+			while (ft_isdigit(format[data->index]))
+				data->index++;
+		}
 	}
 	else
 		data->preci = -1;
 }
 
-static void	getwidth(const char *format, t_fdata *data)
+static void	getwidth(const char *format, t_fdata *data, va_list *ap)
 {
-	if (ft_isdigit(format[data->index]))
+	data->fwidth = 0;
+	while (ft_isdigit(format[data->index]) || format[data->index] == '*')
 	{
-		data->fwidth = ft_atoi(&format[data->index]);
-		while (ft_isdigit(format[data->index]))
+		if (ft_isdigit(format[data->index]))
+		{
+			data->fwidth = ft_atoi(&format[data->index]);
+			while (ft_isdigit(format[data->index]))
+				data->index++;
+		}
+		if (format[data->index] == '*')
+		{
+			data->fwidth = (int)va_arg(*ap, int);
 			data->index++;
+		}
 	}
-	else
-		data->fwidth = 0;
+	if (data->fwidth < 0)
+	{
+		data->fwidth *= -1;
+		data->flags[3] = 1;
+	}
 }
 
 static void	getlength(const char *format, t_fdata *data)
@@ -64,12 +84,12 @@ static void	getlength(const char *format, t_fdata *data)
 	}
 }
 
-void		getdata(const char *format, t_fdata *data)
+void		getdata(const char *format, t_fdata *data, va_list *ap)
 {
 	ft_bzero(&data->fwidth, sizeof(t_fdata) - sizeof(data->index));
 	data->index++;
 	getflags(format, data);
-	getwidth(format, data);
-	getprecison(format, data);
+	getwidth(format, data, ap);
+	getprecison(format, data, ap);
 	getlength(format, data);
 }

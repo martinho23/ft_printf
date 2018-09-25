@@ -6,20 +6,24 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 08:52:42 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 15:13:31 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 11:04:30 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static int	proc(uintmax_t nbr, size_t b, int step, char *ar, char *chars)
+static int	proc(uintmax_t nbr, size_t b, char *ar, char *chars)
 {
-	int	size;
+	static int	step = 0;
+	int			size;
 
-	size = 0;
-	size = (step > size) ? step : size;
+	size = step;
 	if (nbr > (b - 1))
-		size = proc((nbr / b), b, (step + 1), ar, chars);
+	{
+		step++;
+		size = proc((nbr / b), b, ar, chars);
+		step--;
+	}
 	ar[size - step] = chars[nbr % b];
 	return (size);
 }
@@ -30,7 +34,7 @@ int			ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl)
 
 	if (b < 2 || b > ft_strlen(cl))
 		return (-1);
-	size = proc(nbr, b, 0, ar, cl);
+	size = proc(nbr, b, ar, cl);
 	ar[size + 1] = '\0';
 	return (size + 1);
 }

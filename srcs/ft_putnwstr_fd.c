@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 04:01:54 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 14:42:24 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 15:37:56 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_putnwstr_fd(const wchar_t *str, size_t n, int fd)
 	if (fd > 0 && str)
 	{
 		len = 0;
-		while (*str && (n > (size_t)len))
+		while (*str && ((long int)n > (long int)len))
 			len += ft_putchar_fd(*str++, fd);
 		return (len);
 	}

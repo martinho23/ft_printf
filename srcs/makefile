@@ -6,11 +6,11 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/26 14:55:06 by jfarinha          #+#    #+#              #
-#    Updated: 2018/09/25 16:39:02 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/07/04 07:34:28 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =libftprintf.a
+NAME :=libftprintf.a
 FILES :=ft_printf	getdata	printf_utils	chars_handler	string_handler\
 		int_handler	uint_handler	percent_handler\
 		ft_atoi	ft_isdigit	ft_getindice	ft_bzero	ft_putchar_fd	\
@@ -25,19 +25,19 @@ FLAGS :=-Wall -Werror -Wextra
 
 
 .PHONY: all clean fclean re output
-all: $(NAME)
+all:$(NAME)
 
-%.o: %.c
+%.o:%.c
 	gcc $(FLAGS) -o $@ -I $(INC) -c $<
 
-$(NAME): $(BINS)
+$(NAME):$(BINS)
 	ar -rc $@ $^
 	ranlib $@
 
 clean:
-	rm -f $(BINS)
+	rm -rf $(BINS)
 
-fclean: clean
+fclean:clean
 	rm -f $(NAME)
 
 re:fclean all

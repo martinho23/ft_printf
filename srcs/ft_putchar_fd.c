@@ -6,19 +6,19 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:13:59 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/01 14:42:12 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 10:12:44 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../includes/ft_printf.h"
 
-static void	putchar_fd(int c, int fd)
+static void		putchar_fd(int c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-int		ft_putchar_fd(int c, int fd)
+int				ft_putchar_fd(int c, int fd)
 {
 	if (c <= 0x7F && fd >= 0)
 		putchar_fd(c, fd);

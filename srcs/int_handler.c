@@ -6,9 +6,10 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/10 19:40:00 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 15:14:51 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 static intmax_t	getim(const char *format, t_fdata *data, va_list *ap)
@@ -67,17 +68,17 @@ int				int_handler(const char *format, t_fdata *data, va_list *ap)
 	nb.sprc = 0;
 	nb.poschar = (data->flags[4]) ? ' ' : '\0';
 	nb.poschar = (data->flags[1]) ? '+' : nb.poschar;
-	nb.poschar = (nb.nb < 0)? '-' : nb.poschar;
+	nb.poschar = (nb.nb < 0) ? '-' : nb.poschar;
 	data->index++;
 	if (data->preci > -1)
 	{
 		nb.sprc = data->preci - nb.snb;
-		nb.spad = nb.spad - nb.sprc;
+		nb.spad = (nb.sprc > 0) ? nb.spad - nb.sprc : nb.spad;
 	}
 	else if (data->flags[0] && !data->flags[3])
-		 nb.pad = '0';
-	nb.spad = nb.spad - nb.snb;
+		nb.pad = '0';
+	nb.spad = (data->preci == 0 && nb.nb == 0) ? nb.spad : nb.spad - nb.snb;
 	nb.spad -= (nb.nb < 0 || data->flags[1] || data->flags[4]) ? 1 : 0;
 	process(data, &nb, &len);
 	return (len);
- }
+}

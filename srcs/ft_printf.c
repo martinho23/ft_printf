@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/12 17:32:28 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 13:42:19 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,17 @@ static int		printformat(const char *format, t_fdata *data, va_list *ap)
 	int		(*func[CONVNB])(const char *, t_fdata *, va_list *);
 
 	funcinit(func);
-	getdata(format, data);
+	getdata(format, data, ap);
 	op = ft_getindice(CONVERTIONS, format[data->index]);
-	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : func[14](format, data, ap));
+	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : 0);
 }
 
 int				ft_printf(const char *format, ...)
 {
-	t_fdata	data;
+	t_fdata			data;
 	int				rval;
 	int				tmp;
 	va_list			ap;
-
 
 	data.index = 0;
 	rval = 0;
@@ -70,8 +69,10 @@ int				ft_printf(const char *format, ...)
 	while (format[data.index] && rval != (-1))
 	{
 		if (format[data.index] == '%')
-			rval = ((tmp = printformat(format, &data, &ap)) == -1) ? \
-			(-1) : tmp + rval;
+		{
+			tmp = printformat(format, &data, &ap);
+			rval = (tmp != -1) ? tmp + rval : -1;
+		}
 		else
 			rval += printraw(format, &data);
 	}

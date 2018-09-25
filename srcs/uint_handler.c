@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/10 19:45:48 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 16:09:00 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
 			return (ft_putstr_fd("0", 1));
 	}
 	else
+	{
 		if (format[data->index] == 'o' || format[data->index] == 'O')
 			return (ft_putstr_fd("0", 1));
+		if (format[data->index] == 'p')
+			return (ft_putstr_fd("0x", 1));
+	}
 	return (0);
 }
 
@@ -69,7 +73,7 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 	}
 	else
 		ft_uimtoa_base(nb->unb, nb->base, nba, BASE16);
-	if (d->preci != 0 || nb->unb != 0)
+	if (d->preci || nb->unb)
 		len += ft_putnstr_fd(nba, nb->snb, 1);
 	if (d->flags[3])
 		len += pad(nb->spad, nb->pad);
@@ -82,7 +86,10 @@ static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 	if (data->flags[2])
 	{
 		if (format[data->index] == 'o' || format[data->index] == 'O')
+		{
 			nb->spad -= 1;
+			data->preci -= (data->preci != 0) ? 1 : 0;
+		}
 		else
 			nb->spad -= (nb->unb != 0) ? 2 : 0;
 	}
@@ -90,14 +97,13 @@ static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 	{
 		data->flags[2] = 1;
 		nb->base = 16;
+		nb->spad -= 2;
 	}
-	else if (format[data->index] == 'x' ||format[data->index] == 'X')
+	else if (format[data->index] == 'x' || format[data->index] == 'X')
 		nb->base = 16;
-	else if (format[data->index] == 'o')
+	else if (format[data->index] == 'o' || format[data->index] == 'O')
 		nb->base = 8;
-	else if (format[data->index] == 'O')
-		data->len = 2;
-	else if (format[data->index] == 'U')
+	if (format[data->index] == 'O' || format[data->index] == 'U')
 		data->len = 2;
 }
 
@@ -110,13 +116,14 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	prep(format, d, &nb);
 	nb.unb = getuim(format, d, ap);
 	nb.snb = ft_uimtoalen_base(nb.unb, nb.base);
-	nb.pad = ' ';
 	nb.sprc = d->preci - nb.snb;
+	nb.pad = ' ';
+	len = 0;
 	if (nb.sprc > 0)
 		nb.spad -= nb.sprc;
 	else if (d->flags[0] && !d->flags[3])
 		nb.pad = '0';
-	if (d->preci != 0 || nb.unb != 0)
+	if (d->preci != 0 || nb.unb != 0 || format[d->index] == 'p')
 		nb.spad -= nb.snb;
 	len = process(format, d, &nb);
 	d->index++;

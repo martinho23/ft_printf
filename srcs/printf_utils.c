@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/04 08:21:49 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 11:18:21 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		pad(int lentopad, char c)
 
 	i = 0;
 	count = 0;
-	while(lentopad > 0)
+	while (lentopad > 0)
 	{
 		while (i < lentopad && i < PAD_MAX)
 			padding[i++] = c;

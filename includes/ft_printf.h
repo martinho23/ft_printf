@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/07/10 08:41:52 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/25 13:36:16 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # include <stdarg.h>
 # include <inttypes.h>
 # include <wchar.h>
-typedef unsigned int t_size;
+
+typedef unsigned int	t_size;
 typedef struct	s_fdata
 {
 	t_size		index;
@@ -55,7 +56,7 @@ int				int_handler(const char *format, t_fdata *data, va_list *ap);
 int				uint_handler(const char *format, t_fdata *date, va_list *ap);
 int				percent_handler(const char *format, t_fdata *data, va_list *ap);
 int				pad(int lentopad, char c);
-void			getdata(const char *format, t_fdata *data);
+void			getdata(const char *format, t_fdata *data, va_list *ap);
 /*
 ** ========== Lib FT ==========
 */
@@ -69,7 +70,7 @@ int				ft_putchar_fd(int c, int fd);
 int				ft_putstr_fd(const char *str, int fd);
 int				ft_putnstr_fd(const char *str, size_t n, int fd);
 int				ft_putnwstr_fd(const wchar_t *wstr, size_t n, int fd);
-size_t			ft_wcharlen(int  c);
+size_t			ft_wcharlen(int c);
 int				ft_imtoalen_base(intmax_t nbr, size_t b);
 int				ft_uimtoalen_base(uintmax_t nbr, size_t b);
 int				ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl);
