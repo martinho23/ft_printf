@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 13:46:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 14:36:46 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			char_handler(const char *format, t_fdata *data, va_list *ap)
 	if (data->len == 2 || format[data->index] == 'C')
 		c = va_arg(*ap, wchar_t);
 	else
-		c = va_arg(*ap, int);
+		c = (char)va_arg(*ap, int);
 	data->index++;
 	init_char_handler(data, &padding);
 	len += (!data->flags[3]) ? pad(data, padding, padc) : ft_putchar_fd(c,\
