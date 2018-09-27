@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 10:58:30 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 14:50:26 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 13:31:52 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,32 @@ static int	init_string_handler(t_fdata *data, int len, int *pad)
 	return (len);
 }
 
-static int	process(const char *format, t_fdata *data, void *str)
+static int	process(const char *format, t_fdata *d, void *str)
 {
-	int		len;
+	int		l;
 	int		padding;
 	char	padc;
 
-	padc = (data->flags[0]) ? '0' : ' ';
-	if (data->len == 2 || format[data->index] == 'S')
+	padc = (d->flags[0]) ? '0' : ' ';
+	if (d->len == 2 || format[d->index] == 'S')
 	{
 		str = (wchar_t *)str;
-		len = ft_wstrlen(str);
-		len = init_string_handler(data, len, &padding);
-		(!data->flags[3]) ? pad(padding, padc) : ft_putnwstr_fd(str, len, 1);
-		(data->flags[3]) ? pad(padding, padc) : ft_putnwstr_fd(str, len, 1);
+		l = ft_wstrlen(str);
+		l = init_string_handler(d, l, &padding);
+		(!d->flags[3]) ? pad(d, padding, padc) : ft_putnwstr_fd(str, l, d->fd);
+		(d->flags[3]) ? pad(d, padding, padc) : ft_putnwstr_fd(str, l, d->fd);
 	}
 	else
 	{
 		str = (char *)str;
-		len = ft_strlen(str);
-		len = init_string_handler(data, len, &padding);
-		(!data->flags[3]) ? pad(padding, padc) : ft_putnstr_fd(str, len, 1);
-		(data->flags[3]) ? pad(padding, padc) : ft_putnstr_fd(str, len, 1);
+		l = ft_strlen(str);
+		l = init_string_handler(d, l, &padding);
+		(!d->flags[3]) ? pad(d, padding, padc) : ft_putnstr_fd(str, l, d->fd);
+		(d->flags[3]) ? pad(d, padding, padc) : ft_putnstr_fd(str, l, d->fd);
 	}
 	if (padding > 0)
-		return (len + padding);
-	return (len);
+		return (l + padding);
+	return (l);
 }
 
 int			string_handler(const char *format, t_fdata *data, va_list *ap)

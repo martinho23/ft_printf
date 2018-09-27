@@ -6,14 +6,14 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 18:18:01 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 11:18:21 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 13:22:04 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../includes/ft_printf.h"
 
-int		pad(int lentopad, char c)
+int		pad(t_fdata *data, int lentopad, char c)
 {
 	char	padding[PAD_MAX];
 	int		i;
@@ -25,7 +25,7 @@ int		pad(int lentopad, char c)
 	{
 		while (i < lentopad && i < PAD_MAX)
 			padding[i++] = c;
-		write(1, padding, i);
+		write(data->fd, padding, i);
 		count += i;
 		i = 0;
 		lentopad -= PAD_MAX;

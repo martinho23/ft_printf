@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 14:16:35 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 13:46:32 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ static int	init_char_handler(t_fdata *data, int *padding)
 	cnbr = (data->fwidth > 1) ? data->fwidth : 1;
 	*padding = data->fwidth - 1;
 	return (cnbr);
-}
-
-int			process(int c, int fd)
-{
-	return (ft_putchar_fd(c, fd));
 }
 
 int			char_handler(const char *format, t_fdata *data, va_list *ap)
@@ -41,7 +36,9 @@ int			char_handler(const char *format, t_fdata *data, va_list *ap)
 		c = va_arg(*ap, int);
 	data->index++;
 	init_char_handler(data, &padding);
-	len += (!data->flags[3]) ? pad(padding, padc) : process(c, 1);
-	len += (data->flags[3]) ? pad(padding, padc) : process(c, 1);
+	len += (!data->flags[3]) ? pad(data, padding, padc) : ft_putchar_fd(c,\
+data->fd);
+	len += (data->flags[3]) ? pad(data, padding, padc) : ft_putchar_fd(c,\
+data->fd);
 	return (len);
 }

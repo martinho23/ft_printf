@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 10:40:12 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 13:33:11 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 
 	len = 0;
 	if (!d->flags[3] && !d->flags[0])
-		len += pad(nb->spad, nb->pad);
+		len += pad(d, nb->spad, nb->pad);
 	if (d->flags[2])
 		len += putconv(f, d, nb);
 	if (!d->flags[3] && d->flags[0])
-		len += pad(nb->spad, nb->pad);
-	len += pad(nb->sprc, '0');
+		len += pad(d, nb->spad, nb->pad);
+	len += pad(d, nb->sprc, '0');
 	if (f[d->index] == 'X')
 	{
 		ft_uimtoa_base(nb->unb, nb->base, nba, BASE16_C);
@@ -74,9 +74,9 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 	else
 		ft_uimtoa_base(nb->unb, nb->base, nba, BASE16);
 	if (d->preci || nb->unb)
-		len += ft_putnstr_fd(nba, nb->snb, 1);
+		len += ft_putnstr_fd(nba, nb->snb, d->fd);
 	if (d->flags[3])
-		len += pad(nb->spad, nb->pad);
+		len += pad(d, nb->spad, nb->pad);
 	return (len);
 }
 

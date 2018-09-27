@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 11:26:01 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 14:21:32 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include <stdio.h>
 #include "../includes/ft_printf.h"
 
-static int		printraw(const char *format, t_fdata *data)
+static int		printraw(const char *f, t_fdata *d)
 {
 	int		i;
 
 	i = 0;
-	while (format[data->index + i] && format[data->index + i] != '%')
+	while (f[d->index + i] && f[d->index + i] != '%' && f[d->index + i] != '{')
 		i++;
-	write(1, &format[data->index], (t_size)i);
-	data->index += i;
+	write(d->fd, &f[d->index], (t_size)i);
+	d->index += i;
 	return (i);
 }
 
-static void		funcinit(int (*func[CONVNB])(const char *, t_fdata *, va_list *))
+static void		funcinit(int (*func[17])(const char *, t_fdata *, va_list *))
 {
 	func[0] = string_handler;
 	func[1] = string_handler;
@@ -58,6 +58,21 @@ static int		printformat(const char *format, t_fdata *data, va_list *ap)
 	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : 0);
 }
 
+static int		management(const char *format, t_fdata *data, va_list *ap)
+{
+	if (ft_strstr(&format[data->index], "{fd}"))
+	{
+		data->fd = va_arg(*ap, int);
+		data->index += 4;
+	}
+	else
+	{
+		data->index += 1;
+		return (ft_putchar_fd('{', data->fd));
+	}
+	return (0);
+}
+
 int				ft_printf(const char *format, ...)
 {
 	t_fdata			data;
@@ -66,6 +81,7 @@ int				ft_printf(const char *format, ...)
 
 	data.index = 0;
 	data.counter = 0;
+	data.fd = 1;
 	va_start(ap, format);
 	while (format[data.index] && data.counter != (-1))
 	{
@@ -74,6 +90,8 @@ int				ft_printf(const char *format, ...)
 			tmp = printformat(format, &data, &ap);
 			data.counter = (tmp != -1) ? tmp + data.counter : -1;
 		}
+		else if (format[data.index] == '{')
+			data.counter += management(format, &data, &ap);
 		else
 			data.counter += printraw(format, &data);
 	}

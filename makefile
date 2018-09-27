@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/26 14:55:06 by jfarinha          #+#    #+#              #
-#    Updated: 2018/09/27 11:28:42 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/09/27 14:05:15 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FILES :=ft_printf	getdata	printf_utils	chars_handler	string_handler\
 		ft_atoi	ft_isdigit	ft_getindice	ft_bzero	ft_putchar_fd	\
 		ft_wstrlen	ft_putnwstr_fd	ft_strlen	ft_putnstr_fd	ft_uimtoa_base\
 		ft_imtoalen_base	ft_uimtoalen_base	ft_isspace	ft_wcharlen\
-		ft_memset	ft_putstr_fd
+		ft_memset	ft_putstr_fd	ft_strstr
 BINS :=$(FILES:=.o)
 BINS :=$(addprefix srcs/, $(BINS))
 INC :=includes

@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_handler.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/27 11:16:04 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 13:48:20 by jfarinha         ###   ########.fr       */
+/*   Created: 2017/11/13 10:58:12 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/09/27 14:08:58 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		n_handler(const char *format, t_fdata *data, va_list *ap)
+char	*ft_strstr(const char *s1, const char *s2)
 {
-	int		*n;
+	int i;
 
-	(void)format;
-	data->index++;
-	n = va_arg(*ap, int*);
-	*n = data->counter;
-	return (0);
+	i = 0;
+	if (s2[i] == '\0')
+		return ((char *)s1);
+	while (*s1)
+	{
+		while (*(s1 + i) == s2[i])
+		{
+			if (!(s2[i + 1]))
+				return ((char *)s1);
+			i++;
+		}
+		i = 0;
+		s1++;
+	}
+	return (NULL);
 }
