@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 14:07:27 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 15:07:57 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define LENGTHS "hHlLjz"
 # define CONVERTIONS "sSdDipoOuUxXcC%bn"
 # define PAD_MAX 1000
-# define CONVNB 17
+# define CNVN 18
 # define BASE10 "0123456789"
 # define BASE16 "0123456789abcdef"
 # define BASE16_C "0123456789ABCDEF"
@@ -53,6 +53,7 @@ typedef struct	s_nbdata
 */
 int				ft_printf(const char *format, ...);
 int				n_handler(const char *format, t_fdata *data, va_list *ap);
+int				r_handler(const char *format, t_fdata *data, va_list *ap);
 int				int_handler(const char *format, t_fdata *data, va_list *ap);
 int				char_handler(const char *format, t_fdata *data, va_list *ap);
 int				uint_handler(const char *format, t_fdata *date, va_list *ap);

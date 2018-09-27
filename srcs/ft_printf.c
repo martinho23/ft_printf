@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 14:21:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 15:08:04 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int		printraw(const char *f, t_fdata *d)
 	return (i);
 }
 
-static void		funcinit(int (*func[17])(const char *, t_fdata *, va_list *))
+static void		funcinit(int (*func[CNVN])(const char *, t_fdata *, va_list *))
 {
 	func[0] = string_handler;
 	func[1] = string_handler;
@@ -45,17 +45,18 @@ static void		funcinit(int (*func[17])(const char *, t_fdata *, va_list *))
 	func[14] = percent_handler;
 	func[15] = uint_handler;
 	func[16] = n_handler;
+	func[17] = r_handler;
 }
 
 static int		printformat(const char *format, t_fdata *data, va_list *ap)
 {
 	int		op;
-	int		(*func[CONVNB])(const char *, t_fdata *, va_list *);
+	int		(*func[CNVN])(const char *, t_fdata *, va_list *);
 
 	funcinit(func);
 	getdata(format, data, ap);
 	op = ft_getindice(CONVERTIONS, format[data->index]);
-	return ((op < CONVNB && op >= 0) ? func[op](format, data, ap) : 0);
+	return ((op < CNVN && op >= 0) ? func[op](format, data, ap) : 0);
 }
 
 static int		management(const char *format, t_fdata *data, va_list *ap)
