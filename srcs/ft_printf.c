@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 13:42:19 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 11:26:01 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int		printraw(const char *format, t_fdata *data)
 	return (i);
 }
 
-static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
+static void		funcinit(int (*func[CONVNB])(const char *, t_fdata *, va_list *))
 {
 	func[0] = string_handler;
 	func[1] = string_handler;
@@ -43,6 +43,8 @@ static void		funcinit(int (*func[14])(const char *, t_fdata *, va_list *))
 	func[12] = char_handler;
 	func[13] = char_handler;
 	func[14] = percent_handler;
+	func[15] = uint_handler;
+	func[16] = n_handler;
 }
 
 static int		printformat(const char *format, t_fdata *data, va_list *ap)
@@ -59,23 +61,22 @@ static int		printformat(const char *format, t_fdata *data, va_list *ap)
 int				ft_printf(const char *format, ...)
 {
 	t_fdata			data;
-	int				rval;
 	int				tmp;
 	va_list			ap;
 
 	data.index = 0;
-	rval = 0;
+	data.counter = 0;
 	va_start(ap, format);
-	while (format[data.index] && rval != (-1))
+	while (format[data.index] && data.counter != (-1))
 	{
 		if (format[data.index] == '%')
 		{
 			tmp = printformat(format, &data, &ap);
-			rval = (tmp != -1) ? tmp + rval : -1;
+			data.counter = (tmp != -1) ? tmp + data.counter : -1;
 		}
 		else
-			rval += printraw(format, &data);
+			data.counter += printraw(format, &data);
 	}
 	va_end(ap);
-	return (rval);
+	return (data.counter);
 }

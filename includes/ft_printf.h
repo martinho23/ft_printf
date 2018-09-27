@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 13:36:16 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 11:24:32 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # define STDOUT 1
 # define FLAGS "0+#- "
 # define LENGTHS "hHlLjz"
-# define CONVERTIONS "sSdDipoOuUxXcC%"
+# define CONVERTIONS "sSdDipoOuUxXcC%bn"
 # define PAD_MAX 1000
-# define CONVNB 15
+# define CONVNB 17
 # define BASE10 "0123456789"
 # define BASE16 "0123456789abcdef"
 # define BASE16_C "0123456789ABCDEF"
@@ -29,6 +29,7 @@ typedef unsigned int	t_size;
 typedef struct	s_fdata
 {
 	t_size		index;
+	int			counter;
 	int			fwidth;
 	int			len;
 	int			preci;
@@ -50,10 +51,11 @@ typedef struct	s_nbdata
 ** ========== Ft_Printf ==========
 */
 int				ft_printf(const char *format, ...);
-int				string_handler(const char *format, t_fdata *data, va_list *ap);
-int				char_handler(const char *format, t_fdata *data, va_list *ap);
+int				n_handler(const char *format, t_fdata *data, va_list *ap);
 int				int_handler(const char *format, t_fdata *data, va_list *ap);
+int				char_handler(const char *format, t_fdata *data, va_list *ap);
 int				uint_handler(const char *format, t_fdata *date, va_list *ap);
+int				string_handler(const char *format, t_fdata *data, va_list *ap);
 int				percent_handler(const char *format, t_fdata *data, va_list *ap);
 int				pad(int lentopad, char c);
 void			getdata(const char *format, t_fdata *data, va_list *ap);

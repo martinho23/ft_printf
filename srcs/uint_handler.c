@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 16:09:00 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 10:40:12 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
 		nb->base = 16;
 	else if (format[data->index] == 'o' || format[data->index] == 'O')
 		nb->base = 8;
+	else if (format[data->index] == 'b')
+		nb->base = 2;
 	if (format[data->index] == 'O' || format[data->index] == 'U')
 		data->len = 2;
 }

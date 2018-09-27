@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 23:50:55 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/25 14:17:41 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 11:27:25 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ static void	getlength(const char *format, t_fdata *data)
 
 void		getdata(const char *format, t_fdata *data, va_list *ap)
 {
-	ft_bzero(&data->fwidth, sizeof(t_fdata) - sizeof(data->index));
+	ft_bzero(&data->fwidth, sizeof(t_fdata) - (sizeof(data->index) + \
+sizeof(data->counter)));
 	data->index++;
 	getflags(format, data);
 	getwidth(format, data, ap);
