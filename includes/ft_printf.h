@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 15:07:57 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 17:57:10 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # define BASE10 "0123456789"
 # define BASE16 "0123456789abcdef"
 # define BASE16_C "0123456789ABCDEF"
+# define UPRINT3 "[SOH][STX][ETX][EOT][ENQ][ACK][BEL][DLE][DC1][DC2][DC3][DC4]\
+[NAK][SYN][ETB][CAN][SUB][ESC][DEL]"
+# define UPRINT2 "[BS][HT][LF][VT][FF][CR][SO][SI][EM][FS][GS][RS][US]"
 # include <stdarg.h>
 # include <inttypes.h>
 # include <wchar.h>

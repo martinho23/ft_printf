@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_handler.c                                        :+:      :+:    :+:   */
+/*   ft_putuprint_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:08:25 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 16:54:30 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/27 17:58:56 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static int	get_size(char *str)
+static int	get_size(const char *str)
 {
 	int		i;
 
@@ -30,8 +30,28 @@ static int	get_size(char *str)
 	return (i);
 }
 
-int		r_handler(const char *format, t_fdata *data, va_list *ap)
+static int	proc(int size, int fd, const char *str)
 {
+	char	dest[size];
+	char	*tmp;
+	char	*char3;
+	char	*char2;
 
-	return (0);
+	char3 = UPRINT3;
+	char2 = UPRINT2;
+	tmp = dest;
+	while(str)
+	{
+		if (ft_getindice(*str, UPRINT3CODE))
+	}
+}
+
+int			ft_putuprint_fd(const char *str, int fd)
+{
+	int		size;
+
+	if (fd < 0)
+		return (-1);
+	size = get_size(str);
+	return (proc(size, fd, str));
 }
