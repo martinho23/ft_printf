@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 08:52:42 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 10:36:12 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/29 20:39:35 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 static int	proc(uintmax_t nbr, size_t b, char *ar, char *chars)
 {
-	static int	step = 0;
 	int			size;
 
-	size = step;
+	size = 0;
 	if (nbr > (b - 1))
 	{
-		step++;
-		size = proc((nbr / b), b, ar, chars);
-		step--;
+		size += proc((nbr / b), b, ar, chars);
 	}
-	ar[size - step] = chars[nbr % b];
-	return (size);
+	ar[size] = chars[nbr % b];
+	return (size + 1);
 }
 
 int			ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl)
@@ -35,6 +32,6 @@ int			ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl)
 	if (b < 2 || b > ft_strlen(cl))
 		return (-1);
 	size = proc(nbr, b, ar, cl);
-	ar[size + 1] = '\0';
-	return (size + 1);
+	ar[size] = '\0';
+	return (size);
 }

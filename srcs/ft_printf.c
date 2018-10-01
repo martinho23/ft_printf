@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:17:36 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 15:08:04 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/09/28 13:52:00 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		funcinit(int (*func[CNVN])(const char *, t_fdata *, va_list *))
 	func[14] = percent_handler;
 	func[15] = uint_handler;
 	func[16] = n_handler;
-	func[17] = r_handler;
+//	func[17] = r_handler;
 }
 
 static int		printformat(const char *format, t_fdata *data, va_list *ap)
