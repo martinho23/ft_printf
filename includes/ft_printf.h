@@ -6,32 +6,40 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/01 11:40:24 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/01 13:34:38 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include <stdarg.h>
+# include <inttypes.h>
+# include <wchar.h>
+
+/*
+** Macros
+*/
 # define STDOUT 1
 # define FLAGS "0+#- "
 # define LENGTHS "hHlLjz"
-# define CONVERTIONS "sSdDipoOuUxXcC%bn"
+# define CONVERTIONS "sSdDipoOuUxXcC%bnr"
 # define PAD_MAX 1000
 # define CNVN 18
 # define BASE10 "0123456789"
 # define BASE16 "0123456789abcdef"
 # define BASE16_C "0123456789ABCDEF"
-# define UPRINT3 "[SOH][STX][ETX][EOT][ENQ][ACK][BEL][DLE][DC1][DC2][DC3][DC4]\
-[NAK][SYN][ETB][CAN][SUB][ESC][DEL]"
-# define UPRINT2 "[BS][HT][LF][VT][FF][CR][SO][SI][EM][FS][GS][RS][US]"
-# define UPRINT3CODE "\x01\x02\x03\x04\x05\x06\x07\x10\x11\x12\x13\x14\x15\x16\
-\x17\x18\x1a\x1b\x7f"
-# define UPRINT2CODE "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x19\x1c\x1d\x1e\x1f"
-# include <stdarg.h>
-# include <inttypes.h>
-# include <wchar.h>
+# define CODE 0
+# define TEXT 1
+# define UPRINT3 0
+# define UPRINT2 1
 
+/*
+** Type Defs
+*/
 typedef unsigned int	t_size;
+/*
+** Structs
+*/
 typedef struct	s_fdata
 {
 	t_size		index;
@@ -75,8 +83,9 @@ int				ft_isdigit(int c);
 int				ft_isprint(int c);
 int				ft_atoi(const char *str);
 int				ft_putchar_fd(int c, int fd);
+int				ft_uprintlen(const char *str);
 int				ft_putstr_fd(const char *str, int fd);
-int				ft_putuprint_fd(const char *str, int fd);
+int				ft_putnuprint_fd(const char *str, int fd, int n);
 int				ft_getindice(const char *str, char c);
 int				ft_imtoalen_base(intmax_t nbr, size_t b);
 int				ft_uimtoalen_base(uintmax_t nbr, size_t b);
