@@ -6,11 +6,10 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 05:17:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 13:33:11 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/01 16:48:34 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/ft_printf.h"
 
 static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
@@ -33,6 +32,20 @@ static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
 		return ((unsigned int)va_arg(*ap, uintmax_t));
 }
 
+static	void		prepconv(const char *format, t_fdata *data, t_nbdata *nb)
+{
+	if (data->flags[2] && nb->unb)
+	{
+		if (format[data->index] == 'o' || format[data->index] == 'O')
+		{
+			nb->spad -= 1;
+			nb->sprc -= 1;
+		}
+		else
+			nb->spad -=  2;
+	}
+}
+
 static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
 {
 	if (nb->unb != 0)
@@ -46,8 +59,6 @@ static int			putconv(const char *format, t_fdata *data, t_nbdata *nb)
 	}
 	else
 	{
-		if (format[data->index] == 'o' || format[data->index] == 'O')
-			return (ft_putstr_fd("0", 1));
 		if (format[data->index] == 'p')
 			return (ft_putstr_fd("0x", 1));
 	}
@@ -60,11 +71,11 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 	char	nba[1 + nb->snb];
 
 	len = 0;
-	if (!d->flags[3] && !d->flags[0])
+	if (!d->flags[3] && (!d->flags[0] || d->preci != -1))
 		len += pad(d, nb->spad, nb->pad);
 	if (d->flags[2])
 		len += putconv(f, d, nb);
-	if (!d->flags[3] && d->flags[0])
+	if (!d->flags[3] && d->flags[0] && d->preci == -1)
 		len += pad(d, nb->spad, nb->pad);
 	len += pad(d, nb->sprc, '0');
 	if (f[d->index] == 'X')
@@ -73,40 +84,30 @@ static int			process(const char *f, t_fdata *d, t_nbdata *nb)
 	}
 	else
 		ft_uimtoa_base(nb->unb, nb->base, nba, BASE16);
-	if (d->preci || nb->unb)
+	if (d->preci || nb->unb || f[d->index] == 'o' || f[d->index] == 'O')
 		len += ft_putnstr_fd(nba, nb->snb, d->fd);
 	if (d->flags[3])
 		len += pad(d, nb->spad, nb->pad);
 	return (len);
 }
 
-static void			prep(const char *format, t_fdata *data, t_nbdata *nb)
+static void			prep(const char *f, t_fdata *d, t_nbdata *nb)
 {
 	nb->base = 10;
-	if (data->flags[2])
+	if (f[d->index] == 'p')
 	{
-		if (format[data->index] == 'o' || format[data->index] == 'O')
-		{
-			nb->spad -= 1;
-			data->preci -= (data->preci != 0) ? 1 : 0;
-		}
-		else
-			nb->spad -= (nb->unb != 0) ? 2 : 0;
-	}
-	if (format[data->index] == 'p')
-	{
-		data->flags[2] = 1;
+		d->flags[2] = 1;
 		nb->base = 16;
 		nb->spad -= 2;
 	}
-	else if (format[data->index] == 'x' || format[data->index] == 'X')
+	else if (f[d->index] == 'x' || f[d->index] == 'X')
 		nb->base = 16;
-	else if (format[data->index] == 'o' || format[data->index] == 'O')
+	else if (f[d->index] == 'o' || f[d->index] == 'O')
 		nb->base = 8;
-	else if (format[data->index] == 'b')
+	else if (f[d->index] == 'b')
 		nb->base = 2;
-	if (format[data->index] == 'O' || format[data->index] == 'U')
-		data->len = 2;
+	if (f[d->index] == 'O' || f[d->index] == 'U')
+		d->len = 2;
 }
 
 int					uint_handler(const char *format, t_fdata *d, va_list *ap)
@@ -120,10 +121,11 @@ int					uint_handler(const char *format, t_fdata *d, va_list *ap)
 	nb.snb = ft_uimtoalen_base(nb.unb, nb.base);
 	nb.sprc = d->preci - nb.snb;
 	nb.pad = ' ';
+	prepconv(format, d, &nb);
 	len = 0;
 	if (nb.sprc > 0)
 		nb.spad -= nb.sprc;
-	else if (d->flags[0] && !d->flags[3])
+	else if (d->flags[0] && !d->flags[3] && d->preci == -1)
 		nb.pad = '0';
 	if (d->preci != 0 || nb.unb != 0 || format[d->index] == 'p')
 		nb.spad -= nb.snb;
