@@ -6,13 +6,12 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:13:59 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/11 12:58:59 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/11 20:14:19 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
 int				ft_putchar_fd(int c, int fd)
 {
@@ -22,7 +21,6 @@ int				ft_putchar_fd(int c, int fd)
 	if (fd < 0)
 		return (-1);
 	size = ft_wctoa(s, c);
-	printf("Size: %d\n", size);
 	write(fd, s, size);
 	return ((size) ? size : -1);
 }

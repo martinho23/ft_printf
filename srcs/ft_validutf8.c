@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 14:44:47 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/11 12:56:36 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/11 20:13:42 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,20 @@ static int		test(size_t c)
 	return (0);
 }
 
-static size_t	convert(char *chara)
+static size_t	convert(unsigned char *chara)
 {
 	size_t	utf8;
 
-	if ((unsigned)chara[0] <= 0x7F)
-	{
-		utf8 = chara[0];
-	}
-	else if ((unsigned)chara[0] < 0xE0)
-	{
-		utf8 = chara[0];
+	utf8 = chara[0];
+	if (utf8 > 0x7F)
 		utf8 = (utf8 << 8) + chara[1];
-	}
-	else if ((unsigned)chara[0] < 0xF0)
+	else if (utf8 < 0xE0 && utf8 > 0x7F)
 	{
-		utf8 = chara[0];
 		utf8 = (utf8 << 8) + chara[1];
 		utf8 = (utf8 << 8) + chara[2];
 	}
-	else
+	else if (utf8 < 0xF0 && utf8 > 0x7F)
 	{
-		utf8 = chara[0];
 		utf8 = (utf8 << 8) + chara[1];
 		utf8 = (utf8 << 8) + chara[2];
 		utf8 = (utf8 << 8) + chara[3];
@@ -68,6 +60,6 @@ int			ft_validutf8(char *chara)
 {
 	size_t	utf8;
 
-	utf8 = convert(chara);
+	utf8 = convert((unsigned char*)chara);
 	return (test(utf8));
 }

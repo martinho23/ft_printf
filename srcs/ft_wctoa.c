@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 18:58:15 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/11 12:17:01 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/11 19:39:55 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int		ft_wctoa(char *s, size_t c)
 {
 	if (s)
 	{
-		if (c <= 0x7FF)
+		if (c <= 0x7F)
+			s[0] = c;
+		else if (c <= 0x7FF)
 		{
 			s[0] = (c >> 6) + 0xc0;
 			s[1] = (c & 0x3F) + 0x80;
