@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/02 19:27:39 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/11 12:24:37 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ void			getdata(const char *format, t_fdata *data, va_list *ap);
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
-int				ft_wctoa(char *s, size_t c);
 int				ft_atoi(const char *str);
+int				ft_validutf8(char *cahra);
+int				ft_wctoa(char *s, size_t c);
 int				ft_putchar_fd(int c, int fd);
 int				ft_uprintlen(const char *str);
 int				ft_putstr_fd(const char *str, int fd);

@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 18:58:15 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/02 19:33:03 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/11 12:17:01 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int		ft_wctoa(char *s, size_t c)
 			s[3] = (c & 0x3F) + 0x80;
 		}
 	}
-	return (ft_wcharlen(c));
+	return (ft_validutf8(s));
 }
