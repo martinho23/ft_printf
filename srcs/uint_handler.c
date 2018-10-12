@@ -34,7 +34,7 @@ static uintmax_t	getuim(const char *format, t_fdata *data, va_list *ap)
 
 static	void		prepconv(const char *format, t_fdata *data, t_nbdata *nb)
 {
-	if (data->flags[2] && nb->unb)
+	if (data->flags[2] && (nb->unb || format[data->index] == 'p'))
 	{
 		if (format[data->index] == 'o' || format[data->index] == 'O')
 		{
@@ -98,7 +98,6 @@ static void			prep(const char *f, t_fdata *d, t_nbdata *nb)
 	{
 		d->flags[2] = 1;
 		nb->base = 16;
-		nb->spad -= 2;
 	}
 	else if (f[d->index] == 'x' || f[d->index] == 'X')
 		nb->base = 16;

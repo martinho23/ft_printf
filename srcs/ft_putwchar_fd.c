@@ -13,10 +13,14 @@
 #include <unistd.h>
 #include "../includes/ft_printf.h"
 
-int				ft_putchar_fd(int c, int fd)
+int				ft_putwchar_fd(int c, int fd)
 {
+	char	s[4];
+	int		size;
+
 	if (fd < 0)
 		return (-1);
-	write(fd, &c, 1);
-	return (1);
+	size = ft_wctoa(s, c);
+	write(fd, s, size);
+	return ((size) ? size : -1);
 }

@@ -85,6 +85,7 @@ int				ft_atoi(const char *str);
 int				ft_validutf8(char *cahra);
 int				ft_wctoa(char *s, size_t c);
 int				ft_putchar_fd(int c, int fd);
+int				ft_putwchar_fd(int c, int fd);
 int				ft_uprintlen(const char *str);
 int				ft_putstr_fd(const char *str, int fd);
 int				ft_putnuprint_fd(const char *str, int fd, int n);

@@ -17,7 +17,8 @@ FILES :=ft_printf	getdata	printf_utils	chars_handler	string_handler\
 		ft_wstrlen	ft_putnwstr_fd	ft_strlen	ft_putnstr_fd	ft_uimtoa_base\
 		ft_imtoalen_base	ft_uimtoalen_base	ft_isspace	ft_wcharlen\
 		ft_memset	ft_putstr_fd	ft_strstr	ft_isprint	ft_strncpy\
-		ft_putnuprint_fd	ft_uprintlen	ft_wctoa	ft_validutf8
+		ft_putnuprint_fd	ft_uprintlen	ft_wctoa	ft_validutf8\
+		ft_putwchar_fd
 BINS :=$(FILES:=.o)
 BINS :=$(addprefix srcs/, $(BINS))
 INC :=includes

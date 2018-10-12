@@ -58,10 +58,7 @@ int			string_handler(const char *format, t_fdata *data, va_list *ap)
 	else
 		str = (char *)va_arg(*ap, char *);
 	if (str == NULL)
-	{
-		data->index++;
-		return (ft_putstr_fd("(null)", STDOUT));
-	}
+		str = "(null)";
 	len = process(format, data, str);
 	data->index++;
 	return (len);
