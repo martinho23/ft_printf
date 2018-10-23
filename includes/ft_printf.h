@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 08:23:02 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/11 12:24:37 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/23 10:39:02 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int				uint_handler(const char *format, t_fdata *date, va_list *ap);
 int				string_handler(const char *format, t_fdata *data, va_list *ap);
 int				percent_handler(const char *format, t_fdata *data, va_list *ap);
 int				pad(t_fdata *data, int lentopad, char c);
+uintmax_t		getuim(const char *format, t_fdata *data, va_list *ap);
 void			getdata(const char *format, t_fdata *data, va_list *ap);
 /*
 ** ========== Lib FT ==========
@@ -82,8 +83,8 @@ int				ft_isspace(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
 int				ft_atoi(const char *str);
-int				ft_validutf8(char *cahra);
-int				ft_wctoa(char *s, size_t c);
+int				ft_validutf8(unsigned char *cahra);
+int				ft_wctoa(unsigned char *s, size_t c);
 int				ft_putchar_fd(int c, int fd);
 int				ft_putwchar_fd(int c, int fd);
 int				ft_uprintlen(const char *str);

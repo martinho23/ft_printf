@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:35:34 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/01 15:28:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/17 12:51:51 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		process(t_fdata *data, t_nbdata *nb, int *len)
 	char	nba[nb->snb + 1];
 
 	*len = 0;
-	if ((!data->flags[3] && !data->flags[0]) || data->preci != -1)
+	if (!data->flags[3] && (!data->flags[0] || data->preci != -1))
 		*len = pad(data, nb->spad, nb->pad);
 	*len += ft_putnstr_fd(&nb->poschar, 1, data->fd);
 	if (data->flags[0] && !data->flags[3] && data->preci == -1)

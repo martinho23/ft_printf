@@ -6,20 +6,11 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:22:41 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/09/27 14:36:46 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/17 11:41:17 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-static int	init_char_handler(t_fdata *data, int *padding)
-{
-	int		cnbr;
-
-	cnbr = (data->fwidth > 1) ? data->fwidth : 1;
-	*padding = data->fwidth - 1;
-	return (cnbr);
-}
 
 int			char_handler(const char *format, t_fdata *data, va_list *ap)
 {
@@ -42,7 +33,9 @@ int			char_handler(const char *format, t_fdata *data, va_list *ap)
 		putchar = &ft_putchar_fd;
 	}
 	data->index++;
-	init_char_handler(data, &padding);
+	if (c > 0x10ffff)
+		return (-1);
+	padding = data->fwidth - ft_wcharlen(c);
 	len += (!data->flags[3]) ? pad(data, padding, padc) : putchar(c, data->fd);
 	len += (data->flags[3]) ? pad(data, padding, padc) : putchar(c, data->fd);
 	return (len);

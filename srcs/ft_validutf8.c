@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 14:44:47 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/11 20:13:42 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/23 12:00:48 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,19 @@ static size_t	convert(unsigned char *chara)
 	size_t	utf8;
 
 	utf8 = chara[0];
-	if (utf8 > 0x7F)
+	if (chara[0] >= 0x7F)
 		utf8 = (utf8 << 8) + chara[1];
-	else if (utf8 < 0xE0 && utf8 > 0x7F)
-	{
-		utf8 = (utf8 << 8) + chara[1];
+	if (chara[0] >= 0xE0)
 		utf8 = (utf8 << 8) + chara[2];
-	}
-	else if (utf8 < 0xF0 && utf8 > 0x7F)
-	{
-		utf8 = (utf8 << 8) + chara[1];
-		utf8 = (utf8 << 8) + chara[2];
+	if (chara[0] >= 0xF0)
 		utf8 = (utf8 << 8) + chara[3];
-	}
 	return (utf8);
 }
 
-int			ft_validutf8(char *chara)
+int				ft_validutf8(unsigned char *chara)
 {
 	size_t	utf8;
 
-	utf8 = convert((unsigned char*)chara);
+	utf8 = convert(chara);
 	return (test(utf8));
 }

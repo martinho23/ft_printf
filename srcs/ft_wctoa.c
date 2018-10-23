@@ -6,13 +6,13 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 18:58:15 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/10/11 19:39:55 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/10/23 11:29:15 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		ft_wctoa(char *s, size_t c)
+int		ft_wctoa(unsigned char *s, size_t c)
 {
 	if (!s)
 		return (0);
